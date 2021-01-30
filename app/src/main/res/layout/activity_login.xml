@@ -58,7 +58,7 @@
         android:layout_marginEnd="10dp"
         android:background="#339523"
         android:backgroundTint="#7DBE6E"
-        android:text="Sign-in or Sign-up"
+        android:text="Login"
         android:textColor="#08460A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -66,14 +66,14 @@
         app:layout_constraintTop_toBottomOf="@+id/editText2" />
 
     <android.widget.Button
-        android:id="@+id/btn_google"
+        android:id="@+id/btn_signUp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="#649800"
-        android:text="google"
+        android:text="회원가입"
         android:textColor="#08460A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
