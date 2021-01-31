@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1063748413501",
+    "project_id": "dailygreen-app",
+    "storage_bucket": "dailygreen-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063748413501:android:09a2f2d0beb7b6d8a8e254",
+        "android_client_info": {
+          "package_name": "com.example.dailygreen_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063748413501-tu6iv62onf92je7t0621glgl54acpjce.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdaUBqms1BPsLQTxo7LYJHZY9_p8VAOD4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063748413501-tu6iv62onf92je7t0621glgl54acpjce.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
