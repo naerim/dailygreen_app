@@ -22,7 +22,7 @@ class SignUpActivity : AppCompatActivity() {
         // 파이어베이스 인증 객체
         auth = FirebaseAuth.getInstance()
 
-        edt_email = findViewById(R.id.edt_email)
+        edt_email = findViewById(R.id.edt_email_login)
         edt_password = findViewById(R.id.edt_password)
         btn_signUp = findViewById(R.id.btn_signUp)
 
