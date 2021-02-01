@@ -53,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
                     moveMainPage(task.result?.user)
                 }else{
                     resetEditText()
-                    Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "아이디/비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
     }
