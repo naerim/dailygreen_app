@@ -5,81 +5,100 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".LoginActivity">
 
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
 
         android:layout_marginStart="65dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="65dp"
-        android:src="@drawable/blankface"
+        android:src="@drawable/mainlogotext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edt_email_login"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="130dp"
         android:layout_marginEnd="10dp"
+        android:background="@drawable/edittextbackground"
         android:hint="이메일"
-        android:textColor="#08460A"
+        android:paddingLeft="15dp"
+        android:textColor="@color/textcolor"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/edt_password_login"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
+        android:background="@drawable/edittextbackground"
         android:hint="비밀번호"
-        android:textColor="#08460A"
         android:inputType="textPassword"
+        android:paddingLeft="15dp"
+        android:textColor="@color/textcolor"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_email_login" />
 
     <android.widget.Button
         android:id="@+id/btn_login"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
-        android:background="#339523"
-        android:backgroundTint="#7DBE6E"
+        android:background="@drawable/roundbutton"
+        android:backgroundTint="@color/btnbackground"
         android:text="Login"
-        android:textColor="#08460A"
+        android:textColor="#f7f7f7"
+        android:textSize="15sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_password_login" />
 
     <android.widget.Button
         android:id="@+id/btn_signUp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="18dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="#649800"
-        android:text="회원가입"
+        android:background="@drawable/signup"
         android:textColor="#08460A"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:srcCompat="@drawable/loginsuggest" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
