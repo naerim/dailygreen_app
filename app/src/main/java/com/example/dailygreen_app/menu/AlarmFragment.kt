@@ -20,7 +20,7 @@ import java.util.*
 class AlarmFragment : Fragment(){
 
     lateinit var alarmManager: AlarmManager
-    var dialog : DatePickerDialog? = null
+//    var dialog : DatePickerDialog? = null
 
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_alarm, container, false)
@@ -28,8 +28,8 @@ class AlarmFragment : Fragment(){
         // 알람 관리자 소환
         alarmManager = getActivity()!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        var textView = view.findViewById<TextView>(R.id.textView2)
-//       val textView: TextView = view.findViewById(R.id.textView2)
+//        var textView = view.findViewById<TextView>(R.id.textView2)
+       val textView: TextView = view.findViewById(R.id.textView2)
 //
 //        textView.text = SimpleDateFormat("dd.MM.yyyy").format(System.currentTimeMillis())
         //val textView: TextView  = view.findViewById(R.id.show_date)
@@ -43,12 +43,12 @@ class AlarmFragment : Fragment(){
 //            var month = calendar.get(Calendar.MONTH)
 //            var day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val calendar = GregorianCalendar(Locale.KOREA)
-        val dialog = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth ->
-            calendar.get(Calendar.YEAR)
-            calendar.get(Calendar.MONTH)
-            calendar.get(Calendar.DATE)
-        }
+//        val calendar = GregorianCalendar(Locale.KOREA)
+//        val dialog = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth ->
+//            calendar.get(Calendar.YEAR)
+//            calendar.get(Calendar.MONTH)
+//            calendar.get(Calendar.DATE)
+//        }
 
 //            dialog = DatePickerDialog.OnDateSetListener { _, i, i2, i3 ->
 //                textView.text = "${i}년 ${i2 + 1}월 ${i3}일일"
@@ -67,10 +67,53 @@ class AlarmFragment : Fragment(){
 //            var day = calendar.get(Calendar.DAY_OF_MONTH)
 //
 //            var listener = DatePickerDialog.OnDateSetListener { _, i, i2, i3 ->
-//                textView.text = "${i}년 ${i2+1}월 ${i3}일일"
+//                textView.text = "${i}년 ${i2+1}월 ${i3}일"
 //            }
 //        }
 
+
+        var calendar = Calendar.getInstance()
+        var year = calendar.get(Calendar.YEAR)
+        var month = calendar.get(Calendar.MONTH)
+        var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        btnAddAlarm.setOnClickListener {
+            var dialog = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { _, i, i2, i3 ->
+                textView.setText("" + day + " " + month + ". " + year)
+            }, year, month, day)
+            dialog.show()
+        }
+
+
         return view
     }
+
+
+//    fun clickAddalarm(view:View){
+//            // 특정 날짜에 알람 설정하기
+//        var textView = view.findViewById<TextView>(R.id.textView2)
+//        var addbutton = view.findViewById<Button>(R.id.add_alarm)
+//            // 날짜 선택 다이얼로그 보이기
+//        var vcontext = activity
+//            //val calendar = GregorianCalendar(Locale.KOREA)
+//        val calendar = GregorianCalendar(Locale.KOREA)
+//        val dialog = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth ->
+//            calendar.get(Calendar.YEAR)
+//            calendar.get(Calendar.MONTH)
+//            calendar.get(Calendar.DATE)
+//
+//            val myFormat = "dd.MM.yyyy" // mention the format you need
+//            val sdf = SimpleDateFormat(myFormat, Locale.US)
+//            textView.text = sdf.format(calendar.time)
+//        }
+//
+//        addbutton.setOnClickListener {
+//            DatePickerDialog(
+//                context!!, dialog,
+//                calendar.get(Calendar.YEAR),
+//                calendar.get(Calendar.MONTH),
+//                calendar.get(Calendar.DAY_OF_MONTH)
+//            ).show()
+//        }
+//    }
 }
