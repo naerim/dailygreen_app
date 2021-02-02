@@ -1,6 +1,7 @@
 package com.example.dailygreen_app.menu
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 class HomeFragment : Fragment(){
 
     var firestore : FirebaseFirestore? = null
-    var recyclerview : RecyclerView? = null
+    lateinit var recyclerview : RecyclerView
+    lateinit var plant: ArrayList<Plant>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,43 +26,38 @@ class HomeFragment : Fragment(){
     ): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_home, container, false)
 
+        plant = arrayListOf<Plant>()
+
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
 
-//        recyclerview = getView()?.findViewById(R.id.recyclerview)
-        recyclerview = view.findViewById(R.id.recyclerview!!) as RecyclerView
+        firestore?.collection("plants")?.addSnapshotListener { value, error ->
+            plant.clear()
+            for (snapshot in value!!.documents){
+                var item = snapshot.toObject(Plant::class.java)
+                if (item != null) {
+                    plant.add(item)
+                }
+            }
+            recyclerview.adapter?.notifyDataSetChanged()
+        }
 
-        recyclerview?.adapter = RecyclerViewAdapter()
-        recyclerview?.layoutManager = LinearLayoutManager(activity)
+        recyclerview = view.findViewById(R.id.recyclerview)
+        recyclerview.adapter = RecyclerViewAdapter()
+        recyclerview.layoutManager = LinearLayoutManager(activity)
 
         return view
     }
 
     inner class RecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>(){
 
-        var plant : ArrayList<Plant> = arrayListOf()
-
-        init {
-            firestore?.collection("plants")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                // 배열 비워줌
-                plant.clear()
-                for (snapshot in querySnapshot!!.documents){
-                    var item = snapshot.toObject(Plant::class.java)
-                    plant.add(item!!)
-                }
-                notifyDataSetChanged()
-            }
-        }
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             var view = LayoutInflater.from(parent.context).inflate(R.layout.home_item_layout, parent, false)
             return ViewHolder(view)
         }
 
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
+        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
 
-        // 리사이클러뷰의 아이템 총 개수
-        override fun getItemCount(): Int {
-            return plant.size
         }
 
         //  view와 실제 데이터 연결
@@ -76,5 +73,9 @@ class HomeFragment : Fragment(){
             species.text = plant!![position].species
         }
 
+        // 리사이클러뷰의 아이템 총 개수
+        override fun getItemCount(): Int {
+            return plant.size
+        }
     }
 }
