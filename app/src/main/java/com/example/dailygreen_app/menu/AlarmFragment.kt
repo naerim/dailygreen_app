@@ -43,7 +43,7 @@ class AlarmFragment : Fragment(){
             var month = calendar.get(Calendar.MONTH)
             var day = calendar.get(Calendar.DAY_OF_MONTH)
 
- //           dialog = DatePickerDialog(activity, year, month, day)
+            //           dialog = DatePickerDialog(activity, year, month, day)
 //            dialog = DatePickerDialog.OnDateSetListener { _, i, i2, i3 ->
 //                textView.text = "${i}년 ${i2 + 1}월 ${i3}일일"
 //            }
