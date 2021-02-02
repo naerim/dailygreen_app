@@ -33,7 +33,7 @@ class AlarmFragment : Fragment(){
 
     fun showDialog(){
         val builder = AlertDialog.Builder(activity)
-        val dialogView = layoutInflater.inflate(R.layout.alarm_dialog, null)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_alarm, null)
         val dialogText = dialogView.findViewById<TextView>(R.id.textView_test)
 
         builder.setView(dialogView)

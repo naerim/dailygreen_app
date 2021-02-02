@@ -31,6 +31,7 @@ class HomeFragment : Fragment(){
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
 
+        // 파이어베이스에서 값 불러오기
         firestore?.collection("plants")?.addSnapshotListener { value, error ->
             plant.clear()
             for (snapshot in value!!.documents){
@@ -49,16 +50,14 @@ class HomeFragment : Fragment(){
         return view
     }
 
+    // 리사이클러뷰 사용
     inner class RecyclerViewAdapter : RecyclerView.Adapter<ViewHolder>(){
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.home_item_layout, parent, false)
+            var view = LayoutInflater.from(parent.context).inflate(R.layout.item_myplantlist, parent, false)
             return ViewHolder(view)
         }
 
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
-
-        }
+        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
         //  view와 실제 데이터 연결
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
