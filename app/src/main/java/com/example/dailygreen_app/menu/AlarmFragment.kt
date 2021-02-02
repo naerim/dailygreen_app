@@ -37,17 +37,23 @@ class AlarmFragment : Fragment(){
 
         val btnAddAlarm = view.findViewById<Button>(R.id.add_alarm)
 
-        btnAddAlarm.setOnClickListener {
-            var calendar = Calendar.getInstance()
-            var year = calendar.get(Calendar.YEAR)
-            var month = calendar.get(Calendar.MONTH)
-            var day = calendar.get(Calendar.DAY_OF_MONTH)
+//        btnAddAlarm.setOnClickListener {
+//            var calendar = Calendar.getInstance()
+//            var year = calendar.get(Calendar.YEAR)
+//            var month = calendar.get(Calendar.MONTH)
+//            var day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            //           dialog = DatePickerDialog(activity, year, month, day)
+        val calendar = GregorianCalendar(Locale.KOREA)
+        val dialog = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth ->
+            calendar.get(Calendar.YEAR)
+            calendar.get(Calendar.MONTH)
+            calendar.get(Calendar.DATE)
+        }
+
 //            dialog = DatePickerDialog.OnDateSetListener { _, i, i2, i3 ->
 //                textView.text = "${i}년 ${i2 + 1}월 ${i3}일일"
 //            }
-        }
+ //       }
 
 
 //        fun clickAddalarm(view:View){
