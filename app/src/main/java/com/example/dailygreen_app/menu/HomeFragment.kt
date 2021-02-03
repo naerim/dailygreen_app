@@ -1,10 +1,11 @@
 package com.example.dailygreen_app.menu
 
+import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ class HomeFragment : Fragment(){
     var firestore : FirebaseFirestore? = null
     lateinit var recyclerview : RecyclerView
     lateinit var plant: ArrayList<Plant>
+    lateinit var btn_addPlant : Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,6 +29,7 @@ class HomeFragment : Fragment(){
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_home, container, false)
 
         plant = arrayListOf<Plant>()
+        btn_addPlant = view.findViewById(R.id.btn_addPlant)
 
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
@@ -46,6 +49,11 @@ class HomeFragment : Fragment(){
         recyclerview = view.findViewById(R.id.recyclerview)
         recyclerview.adapter = RecyclerViewAdapter()
         recyclerview.layoutManager = LinearLayoutManager(activity)
+
+        // 키우는 식물 추가
+        btn_addPlant.setOnClickListener {
+            showDialog()
+        }
 
         return view
     }
@@ -76,5 +84,17 @@ class HomeFragment : Fragment(){
         override fun getItemCount(): Int {
             return plant.size
         }
+    }
+
+    fun showDialog(){
+        val builder = AlertDialog.Builder(activity)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_addplants, null)
+
+        builder.setView(dialogView)
+            .setPositiveButton("등록"){ dialogInterFace, i ->
+
+            }
+            .setNegativeButton("취소", null)
+            .show()
     }
 }
