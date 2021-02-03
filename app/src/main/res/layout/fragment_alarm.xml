@@ -2,28 +2,56 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/btnbackground">
+    android:background="@color/background">
 
-    <Button
-        android:id="@+id/set_alarm"
-        android:layout_width="match_parent"
+    <android.widget.Button
+        android:id="@+id/btn_addalarm"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="알람 설정하기"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/roundbutton"
+        android:backgroundTint="@color/btnbackground"
+        android:onClick="clickBtnAddalarm"
+        android:text="알람(DATE)"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/set_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="94dp"
-        android:text="TextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/text_time"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"
+        android:textColor="@color/textcolor"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/set_alarm" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_addalarm" />
+
+    <TextView
+        android:id="@+id/text_date"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:textColor="@color/textcolor"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/text_time"
+        app:layout_constraintTop_toBottomOf="@+id/btn_addalarm" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_alarm"
+        android:layout_width="416dp"
+        android:layout_height="590dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
