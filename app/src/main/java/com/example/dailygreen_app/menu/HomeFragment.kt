@@ -17,8 +17,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 class HomeFragment : Fragment(){
 
     var firestore : FirebaseFirestore? = null
-    lateinit var recyclerview : RecyclerView
-    lateinit var plant: ArrayList<Plant>
+    lateinit var recyclerview_home : RecyclerView
+    lateinit var mylist: ArrayList<MyList>
     lateinit var btn_addPlant : Button
 
     override fun onCreateView(
@@ -28,27 +28,27 @@ class HomeFragment : Fragment(){
     ): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_home, container, false)
 
-        plant = arrayListOf<Plant>()
+        mylist = arrayListOf<MyList>()
         btn_addPlant = view.findViewById(R.id.btn_addPlant)
 
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
 
         // 파이어베이스에서 값 불러오기
-        firestore?.collection("plants")?.addSnapshotListener { value, error ->
-            plant.clear()
+        firestore?.collection("mylist")?.addSnapshotListener { value, error ->
+            mylist.clear()
             for (snapshot in value!!.documents){
-                var item = snapshot.toObject(Plant::class.java)
+                var item = snapshot.toObject(MyList::class.java)
                 if (item != null) {
-                    plant.add(item)
+                    mylist.add(item)
                 }
             }
-            recyclerview.adapter?.notifyDataSetChanged()
+            recyclerview_home.adapter?.notifyDataSetChanged()
         }
 
-        recyclerview = view.findViewById(R.id.recyclerview)
-        recyclerview.adapter = RecyclerViewAdapter()
-        recyclerview.layoutManager = LinearLayoutManager(activity)
+        recyclerview_home = view.findViewById(R.id.recyclerview_home)
+        recyclerview_home.adapter = RecyclerViewAdapter()
+        recyclerview_home.layoutManager = LinearLayoutManager(activity)
 
         // 키우는 식물 추가
         btn_addPlant.setOnClickListener {
@@ -76,13 +76,13 @@ class HomeFragment : Fragment(){
             name = viewHolder.findViewById(R.id.name)
             species = viewHolder.findViewById(R.id.species)
 
-            name.text = plant!![position].name
-            species.text = plant!![position].species
+            name.text = mylist!![position].name
+            species.text = mylist!![position].species
         }
 
         // 리사이클러뷰의 아이템 총 개수
         override fun getItemCount(): Int {
-            return plant.size
+            return mylist.size
         }
     }
 
