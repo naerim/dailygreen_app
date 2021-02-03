@@ -10,14 +10,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dailygreen_app.R
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 import kotlin.collections.ArrayList
 
 class AlarmFragment : Fragment(){
+
+    var firestore : FirebaseFirestore? = null
+    lateinit var recyclerview_alarm : RecyclerView
+    lateinit var myalarmlist : ArrayList<Alarm>
+    lateinit var btn_addAlarm : Button
 
     lateinit var alarmManager: AlarmManager
     lateinit var alarm: ArrayList<Alarm>
@@ -27,6 +35,29 @@ class AlarmFragment : Fragment(){
 
         // 알람 관리자 소환
         alarmManager = getActivity()!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+        
+        myalarmlist = arrayListOf<Alarm>()
+        btn_addAlarm = view.findViewById(R.id.btn_addalarm)
+
+
+
+        // 파이어스토어 인스턴스 초기화
+        firestore = FirebaseFirestore.getInstance()
+        
+        // 파이어베이스에서 값 불러오기
+        firestore?.collection("alarm")?.addSnapshotListener { value, error ->
+            myalarmlist.clear()
+            for(snapshot in value!!.documents){
+                var item = snapshot.toObject(Alarm::class.java)
+                if(item != null)
+                    myalarmlist.add(item)
+            }
+            recyclerview_alarm.adapter?.notifyDataSetChanged()
+        }
+
+        recyclerview_alarm = view.findViewById(R.id.recyclerview_alarm)
+        recyclerview_alarm.adapter = RecyclerViewAdapter()
+        recyclerview_alarm.layoutManager = LinearLayoutManager(activity)
 
         var textDate: TextView = view.findViewById(R.id.text_date)
         var textTime: TextView = view.findViewById(R.id.text_time)
@@ -79,6 +110,9 @@ class AlarmFragment : Fragment(){
 
             date = viewHolder.findViewById(R.id.text_showtime)
             time = viewHolder.findViewById(R.id.text_showdate)
+
+            time.text = myalarmlist!![position].time
+            date.text = myalarmlist!![position].date
 
         }
 
