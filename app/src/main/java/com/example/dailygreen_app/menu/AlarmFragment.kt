@@ -28,7 +28,6 @@ class AlarmFragment : Fragment(){
     lateinit var btn_addAlarm : Button
 
     lateinit var alarmManager: AlarmManager
-    lateinit var alarm: ArrayList<Alarm>
 
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_alarm, container, false)
@@ -38,8 +37,6 @@ class AlarmFragment : Fragment(){
         
         myalarmlist = arrayListOf<Alarm>()
         btn_addAlarm = view.findViewById(R.id.btn_addalarm)
-
-
 
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
@@ -118,7 +115,7 @@ class AlarmFragment : Fragment(){
 
         // 리사이클러뷰의 아이템 총 개수
         override fun getItemCount(): Int {
-            return alarm.size
+            return myalarmlist.size
         }
     }
 
