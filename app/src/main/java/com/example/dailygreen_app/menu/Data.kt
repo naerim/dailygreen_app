@@ -6,7 +6,7 @@ import java.util.*
 data class MyList(
     var name : String? = null,
     var species : String? = null,
-    var date: Date? = null
+    var date: String? = null
 )
 
 // 식물 데이터

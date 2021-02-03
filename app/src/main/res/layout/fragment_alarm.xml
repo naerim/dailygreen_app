@@ -7,18 +7,27 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
+    <Spinner
+        android:id="@+id/spinner_alarmpick"
+        android:layout_width="170dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.widget.Button
         android:id="@+id/btn_addalarm"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="30dp"
         android:background="@drawable/roundbutton"
         android:backgroundTint="@color/btnbackground"
         android:onClick="clickBtnAddalarm"
         android:text="알람(DATE)"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -52,6 +61,8 @@
         android:layout_height="590dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
