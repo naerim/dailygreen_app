@@ -1,6 +1,7 @@
 package com.example.dailygreen_app.menu
 
 import android.app.AlarmManager
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
@@ -12,7 +13,6 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dailygreen_app.Alarm
 import com.example.dailygreen_app.R
 import java.util.*
 import kotlin.collections.ArrayList
@@ -86,9 +86,18 @@ class AlarmFragment : Fragment(){
         override fun getItemCount(): Int {
             return alarm.size
         }
+    }
 
+    fun showDialog(){
+        val builder = AlertDialog.Builder(activity)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_alarm, null)
+        val dialogText = dialogView.findViewById<TextView>(R.id.textView_test)
 
-
+        builder.setView(dialogView)
+            .setPositiveButton("확인"){ dialogInterFace, i ->
+            }
+            .setNegativeButton("취소", null)
+            .show()
     }
 
 }

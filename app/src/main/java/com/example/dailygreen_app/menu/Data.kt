@@ -23,3 +23,7 @@ data class Plants(
 )
 
 // 알람 데이터
+data class Alarm(
+    var time : String? = null,
+    var date : String? = null
+)
