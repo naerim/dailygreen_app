@@ -1,25 +1,37 @@
 package com.example.dailygreen_app.menu
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.dailygreen_app.R
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment(){
 
     var firestore : FirebaseFirestore? = null
     lateinit var recyclerview_home : RecyclerView
     lateinit var mylist: ArrayList<MyList>
+    lateinit var plantlist : ArrayList<String>
+
     lateinit var btn_addPlant : Button
+    lateinit var spinner : Spinner
+    lateinit var edt_date : EditText
+    lateinit var btn_date : Button
+    lateinit var edt_name : EditText
+
+    lateinit var select_species : String
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,22 +41,14 @@ class HomeFragment : Fragment(){
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_home, container, false)
 
         mylist = arrayListOf<MyList>()
+        plantlist = arrayListOf<String>()
         btn_addPlant = view.findViewById(R.id.btn_addPlant)
 
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
 
         // 파이어베이스에서 값 불러오기
-        firestore?.collection("mylist")?.addSnapshotListener { value, error ->
-            mylist.clear()
-            for (snapshot in value!!.documents){
-                var item = snapshot.toObject(MyList::class.java)
-                if (item != null) {
-                    mylist.add(item)
-                }
-            }
-            recyclerview_home.adapter?.notifyDataSetChanged()
-        }
+        loadData()
 
         recyclerview_home = view.findViewById(R.id.recyclerview_home)
         recyclerview_home.adapter = RecyclerViewAdapter()
@@ -86,15 +90,84 @@ class HomeFragment : Fragment(){
         }
     }
 
+    // 스피너 사용
+    inner class MySpinnerListener : AdapterView.OnItemSelectedListener{
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            select_species = plantlist[position]
+        }
+
+    }
+
+    // 다이얼로그
     fun showDialog(){
         val builder = AlertDialog.Builder(activity)
-        val dialogView = layoutInflater.inflate(R.layout.dialog_addplants, null)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_addmylist, null)
+
+        spinner = dialogView.findViewById<Spinner>(R.id.spinner)!!
+        edt_date = dialogView.findViewById(R.id.edt_date)
+        btn_date = dialogView.findViewById(R.id.btn_date)
+        edt_name = dialogView.findViewById(R.id.edt_name)
+
+        btn_date.setOnClickListener {
+            showDate()
+        }
+
+        spinner.adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, plantlist)
+        spinner.onItemSelectedListener = MySpinnerListener()
 
         builder.setView(dialogView)
             .setPositiveButton("등록"){ dialogInterFace, i ->
-
+                firestore?.collection("mylist")
+                    ?.add(hashMapOf("date" to edt_date.text.toString(), "species" to select_species, "name" to edt_name.text.toString()))
+                    ?.addOnSuccessListener{}
+                    ?.addOnFailureListener{}
+                recyclerview_home.adapter?.notifyDataSetChanged()
             }
             .setNegativeButton("취소", null)
             .show()
     }
+
+    // 파이어베이스에서 데이터 불러오는 함수
+    fun loadData(){
+        // 키우는 식물 리스트 불러오기
+        firestore?.collection("mylist")?.orderBy("date", Query.Direction.DESCENDING)
+            ?.addSnapshotListener { value, error ->
+            mylist.clear()
+            for (snapshot in value!!.documents){
+                var item = snapshot.toObject(MyList::class.java)
+                if (item != null) {
+                    mylist.add(item)
+                }
+            }
+            recyclerview_home.adapter?.notifyDataSetChanged()
+        }
+
+        // 앱에 저장되어 있는 식물 종류 불러오기
+        firestore?.collection("plants")?.addSnapshotListener { value, error ->
+            for (snapshot in value!!.documents){
+                var item = snapshot.toObject(Plants::class.java)
+                if (item != null) {
+                    item.species?.let { plantlist.add(it) }
+                    // plantlist.add(item.species)
+                }
+            }
+        }
+    }
+
+    fun showDate(){
+        var calendar = Calendar.getInstance()
+        var year = calendar.get(Calendar.YEAR)
+        var month = calendar.get(Calendar.MONTH)
+        var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        var pickdate = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, day ->
+            edt_date.setText("" + year + "." + (month+1) + "." + day)
+        }, year, month, day)
+
+        pickdate.show()
+    }
+
 }

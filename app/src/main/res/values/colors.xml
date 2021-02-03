@@ -12,4 +12,5 @@
     <color name="logotextcolor">#365C26</color>
     <color name="btnbackground">#9abfb5</color>
     <color name="textcolor">#032504</color>
+    <color name="f_background">#F7F7F7</color>
 </resources>
