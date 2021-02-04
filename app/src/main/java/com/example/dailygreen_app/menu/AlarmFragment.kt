@@ -29,81 +29,49 @@ class AlarmFragment : Fragment(){
 
     lateinit var btn_addAlarm : Button
     lateinit var calendar : GregorianCalendar
-//    lateinit var text : Text
-
-
     lateinit var text_time : TextView
     lateinit var selectspinner: Spinner
-
     lateinit var alarmManager: AlarmManager
+
+    lateinit var spinnerAdapter : ArrayAdapter<String>
+    lateinit var select_plant : String
 
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_alarm, container, false)
 
-        // 알람 관리자 소환
-        alarmManager = getActivity()!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        
         myalarmlist = arrayListOf<Alarm>()
+        myplantlist = arrayListOf<String>()
         btn_addAlarm = view.findViewById(R.id.btn_addalarm)
         text_time = view.findViewById(R.id.text_time)
-
-        myplantlist = arrayListOf<String>()
-
         recyclerview_alarm = view.findViewById(R.id.recyclerview_alarm)
         selectspinner = view.findViewById(R.id.spinner_alarmpick)
 
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
 
-        // 파이어베이스에서 알람 값 불러오기
-        firestore?.collection("alarm")?.addSnapshotListener { value, error ->
-            myalarmlist.clear()
-            for(snapshot in value!!.documents){
-                var item = snapshot.toObject(Alarm::class.java)
-                if(item != null)
-                    myalarmlist.add(item)
-            }
-            recyclerview_alarm.adapter?.notifyDataSetChanged()
-        }
+        // 스피너 어댑터
+        spinnerAdapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, myplantlist)
+        // 알람 관리자 소환
+        alarmManager = getActivity()!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-        // 파이어베이스에서 내 리스트 값 불러오기
-        firestore?.collection("mylist")?.addSnapshotListener { value, error ->
-            myplantlist.clear()
-            for(snapshot in value!!.documents){
-                var item = snapshot.toObject(MyList::class.java)
-                if(item != null)
-                    item.name?.let { myplantlist.add(it) }
-            }
+        // 파이어베이스에서 데이터 불러오기
+        loadData()
 
-        }
-
-        var items = arrayListOf<String>("item1", "item2", "item3")
-
-
-        selectspinner.adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, items)
+        // 스피너
+        selectspinner.adapter = spinnerAdapter
         selectspinner.onItemSelectedListener = AlarmSpinnerListener()
-
-
+        // 리사이클러
         recyclerview_alarm.adapter = RecyclerViewAdapter()
         recyclerview_alarm.layoutManager = LinearLayoutManager(activity)
 
-
-
-
-//        var textDate: TextView = view.findViewById(R.id.text_date)
-//        var textTime: TextView = view.findViewById(R.id.text_time)
-
-//        var btnAddAlarm = view.findViewById<Button>(R.id.btn_addalarm)
-
-
-
-        // 알람추가 버튼 눌렀을 때
+        // 알람등록
         btn_addAlarm.setOnClickListener {
-            addNewAlarm()
+            addAlarm()
         }
 
         return view
     }
+
 
     // 리사이클러뷰 사용
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -140,20 +108,12 @@ class AlarmFragment : Fragment(){
         }
 
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            select_plant = myplantlist[position]
         }
 
     }
-//    inner class AlarmSpinnerListener : AdapterView.OnItemSelectedListener{
-//        override fun onNothingSelected(parent: AdapterView<*>?) {
-//            //test.text = "error error"
-//        }
-//
-//        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-////            text_time.text = myplantlist[position]
-//        }
-//    }
 
-    fun addNewAlarm(){
+    fun addAlarm(){
         // 시간 선택
         //var timeSetListener = TimePickerDialog.OnTimeSetListener(calendar.get(Calendar.HOUR_OF_DAY))
         var textDate: TextView = view!!.findViewById(R.id.text_date)
@@ -177,6 +137,29 @@ class AlarmFragment : Fragment(){
         pickdate.show()
 
         //var calendar = GregorianCalendar(year, month, day, hour, minute)
+    }
+
+    fun loadData(){
+        // 파이어베이스에서 알람 리스트 불러오기
+        firestore?.collection("alarm")?.addSnapshotListener { value, error ->
+            myalarmlist.clear()
+            for(snapshot in value!!.documents){
+                var item = snapshot.toObject(Alarm::class.java)
+                if(item != null)
+                    myalarmlist.add(item)
+            }
+            recyclerview_alarm.adapter?.notifyDataSetChanged()
+        }
+
+        // 파이어베이스에서 내 리스트 값 불러오기
+        firestore?.collection("mylist")?.addSnapshotListener { value, error ->
+            for(snapshot in value!!.documents){
+                var item = snapshot.toObject(MyList::class.java)
+                if(item != null)
+                    item.name?.let { myplantlist.add(it) }
+            }
+            spinnerAdapter.notifyDataSetChanged()
+        }
     }
 
     fun showDialog(){
