@@ -19,6 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 class AlarmFragment : Fragment(){
 
@@ -32,6 +33,8 @@ class AlarmFragment : Fragment(){
     lateinit var text_time : TextView
     lateinit var selectspinner: Spinner
     lateinit var alarmManager: AlarmManager
+    lateinit var textTime : String
+    lateinit var textDate : String
 
     lateinit var spinnerAdapter : ArrayAdapter<String>
     lateinit var select_plant : String
@@ -66,12 +69,13 @@ class AlarmFragment : Fragment(){
 
         // 알람등록
         btn_addAlarm.setOnClickListener {
+            textDate = ""
+            textTime = ""
             addAlarm()
         }
 
         return view
     }
-
 
     // 리사이클러뷰 사용
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -116,8 +120,8 @@ class AlarmFragment : Fragment(){
     fun addAlarm(){
         // 시간 선택
         //var timeSetListener = TimePickerDialog.OnTimeSetListener(calendar.get(Calendar.HOUR_OF_DAY))
-        var textDate: TextView = view!!.findViewById(R.id.text_date)
-        var textTime: TextView = view!!.findViewById(R.id.text_time)
+////        var textDate: String? =null
+//        var textTime: String? = null
 
         calendar = Calendar.getInstance() as GregorianCalendar
         var year = calendar.get(Calendar.YEAR)
@@ -127,16 +131,21 @@ class AlarmFragment : Fragment(){
         var minute = calendar.get(Calendar.MINUTE)
 
         var picktime = TimePickerDialog(context!!, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            textTime.setText("" + hourOfDay + "시 " + minute + "분  ")
+            textTime = hourOfDay.toString() + ": " + minute.toString()
         }, hour, minute, true)
         picktime.show()
         // 날짜 선택
         var pickdate = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, day ->
-            textDate.setText("" + day + "/ " +  (month+1) + "/ " + year)
+            textDate = ("" + year + ". " +  (month+1) + ". " + day)
         }, year, month, day)
         pickdate.show()
 
-        //var calendar = GregorianCalendar(year, month, day, hour, minute)
+
+        firestore?.collection("alarm")
+            ?.add(hashMapOf("time" to textTime, "date" to textDate))
+            ?.addOnSuccessListener { }
+            ?.addOnFailureListener { }
+        recyclerview_alarm.adapter?.notifyDataSetChanged()
     }
 
     fun loadData(){
@@ -162,16 +171,16 @@ class AlarmFragment : Fragment(){
         }
     }
 
-    fun showDialog(){
-        val builder = AlertDialog.Builder(activity)
-        val dialogView = layoutInflater.inflate(R.layout.dialog_alarm, null)
-        val dialogText = dialogView.findViewById<TextView>(R.id.textView_test)
-
-        builder.setView(dialogView)
-            .setPositiveButton("확인"){ dialogInterFace, i ->
-            }
-            .setNegativeButton("취소", null)
-            .show()
-    }
+//    fun showDialog(){
+//        val builder = AlertDialog.Builder(activity)
+//        val dialogView = layoutInflater.inflate(R.layout.dialog_alarm, null)
+//        val dialogText = dialogView.findViewById<TextView>(R.id.textView_test)
+//
+//        builder.setView(dialogView)
+//            .setPositiveButton("확인"){ dialogInterFace, i ->
+//            }
+//            .setNegativeButton("취소", null)
+//            .show()
+//    }
 
 }
