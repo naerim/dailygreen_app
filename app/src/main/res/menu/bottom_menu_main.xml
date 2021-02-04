@@ -3,21 +3,26 @@
     <item
         android:id="@+id/action_home"
         android:enabled="true"
+        android:icon="@drawable/homeicon"
         android:title="홈"/>
     <item
         android:id="@+id/action_diary"
         android:enabled="true"
+        android:icon="@drawable/calendaricon"
         android:title="다이어리" />
     <item
         android:id="@+id/action_alarm"
         android:enabled="true"
+        android:icon="@drawable/alarmicon"
         android:title="알람"/>
     <item
         android:id="@+id/action_calender"
         android:enabled="true"
-        android:title="캘린더"/>
+        android:icon="@drawable/recommendicon"
+        android:title="추천"/>
     <item
         android:id="@+id/action_recommend"
         android:enabled="true"
-        android:title="추천"/>
+        android:icon="@drawable/settingicon"
+        android:title="설정"/>
 </menu>

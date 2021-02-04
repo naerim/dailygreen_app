@@ -13,23 +13,30 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/mainbackground">
 
         <ImageView
             android:id="@+id/imageView6"
-            android:layout_width="match_parent"
+            android:layout_width="380dp"
             android:layout_height="25dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
+            android:background="@color/mainbackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/top_logo"
-            tools:layout_editor_absoluteX="20dp" />
+            app:srcCompat="@drawable/homelogo" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/mainbackground"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,8 +50,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu_main">
+        app:menu="@menu/bottom_menu_main"
+        android:background="@color/bottomcolor"
+        app:itemIconTint="@color/mainbackground"
+        app:itemTextColor="@color/mainbackground">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
