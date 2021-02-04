@@ -35,13 +35,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_content"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/mainbackground"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.0">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -49,14 +51,14 @@
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/bottomcolor"
+        app:itemIconTint="@color/mainbackground"
+        app:itemTextColor="@color/mainbackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_menu_main"
-        android:background="@color/bottomcolor"
-        app:itemIconTint="@color/mainbackground"
-        app:itemTextColor="@color/mainbackground">
+        app:menu="@menu/bottom_menu_main">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
