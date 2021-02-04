@@ -2,26 +2,34 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <Spinner
-        android:id="@+id/spinner_alarmpick"
-        android:layout_width="170dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="18dp"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spinner_alarmpick"
+            android:layout_width="216dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="26dp" />
+
+    </LinearLayout>
 
     <android.widget.Button
         android:id="@+id/btn_addalarm"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="200dp"
         android:background="@drawable/roundbutton"
         android:backgroundTint="@color/btnbackground"
         android:onClick="clickBtnAddalarm"
@@ -34,8 +42,8 @@
         android:id="@+id/text_time"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
         android:textAlignment="center"
         android:textColor="@color/textcolor"
         android:textSize="24sp"
@@ -46,22 +54,25 @@
         android:id="@+id/text_date"
         android:layout_width="150dp"
         android:layout_height="50dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="20dp"
         android:textColor="@color/textcolor"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toEndOf="@+id/text_time"
         app:layout_constraintTop_toBottomOf="@+id/btn_addalarm" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_alarm"
-        android:layout_width="416dp"
-        android:layout_height="590dp"
+        android:layout_width="405dp"
+        android:layout_height="494dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_time">
 
     </androidx.recyclerview.widget.RecyclerView>
 

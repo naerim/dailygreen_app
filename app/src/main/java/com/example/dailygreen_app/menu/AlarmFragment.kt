@@ -25,11 +25,14 @@ class AlarmFragment : Fragment(){
     var firestore : FirebaseFirestore? = null
     lateinit var recyclerview_alarm : RecyclerView
     lateinit var myalarmlist : ArrayList<Alarm>
-    lateinit var mylist : ArrayList<MyList>
+    lateinit var myplantlist : ArrayList<String>
+
     lateinit var btn_addAlarm : Button
     lateinit var calendar : GregorianCalendar
-    lateinit var text : Text
+//    lateinit var text : Text
 
+
+    lateinit var text_time : TextView
     lateinit var selectspinner: Spinner
 
     lateinit var alarmManager: AlarmManager
@@ -42,12 +45,16 @@ class AlarmFragment : Fragment(){
         
         myalarmlist = arrayListOf<Alarm>()
         btn_addAlarm = view.findViewById(R.id.btn_addalarm)
+        text_time = view.findViewById(R.id.text_time)
 
-        mylist = arrayListOf<MyList>()
+        myplantlist = arrayListOf<String>()
+
+        recyclerview_alarm = view.findViewById(R.id.recyclerview_alarm)
+        selectspinner = view.findViewById(R.id.spinner_alarmpick)
 
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
-        
+
         // 파이어베이스에서 알람 값 불러오기
         firestore?.collection("alarm")?.addSnapshotListener { value, error ->
             myalarmlist.clear()
@@ -59,51 +66,43 @@ class AlarmFragment : Fragment(){
             recyclerview_alarm.adapter?.notifyDataSetChanged()
         }
 
-        recyclerview_alarm = view.findViewById(R.id.recyclerview_alarm)
+        // 파이어베이스에서 내 리스트 값 불러오기
+        firestore?.collection("mylist")?.addSnapshotListener { value, error ->
+            myplantlist.clear()
+            for(snapshot in value!!.documents){
+                var item = snapshot.toObject(MyList::class.java)
+                if(item != null)
+                    item.name?.let { myplantlist.add(it) }
+            }
+
+        }
+
+        var items = arrayListOf<String>("item1", "item2", "item3")
+
+
+        selectspinner.adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, items)
+        selectspinner.onItemSelectedListener = AlarmSpinnerListener()
+
+
         recyclerview_alarm.adapter = RecyclerViewAdapter()
         recyclerview_alarm.layoutManager = LinearLayoutManager(activity)
 
 
-        // 파이어베이스에서 내 리스트 값 불러오기
-        firestore?.collection("mylist")?.addSnapshotListener { value, error ->
-            for(snapshot in value!!.documents){
-                var item = snapshot.toObject(MyList::class.java)
-                if(item != null)
-                    item.name?.let { mylist.add(item) }
-            }
-        }
+
 
 //        var textDate: TextView = view.findViewById(R.id.text_date)
 //        var textTime: TextView = view.findViewById(R.id.text_time)
 
 //        var btnAddAlarm = view.findViewById<Button>(R.id.btn_addalarm)
 
-        selectspinner = view.findViewById<Spinner>(R.id.spinner_alarmpick)
 
-        selectspinner.setOnClickListener {
-            showSpinner()
-        }
+
         // 알람추가 버튼 눌렀을 때
         btn_addAlarm.setOnClickListener {
             addNewAlarm()
         }
+
         return view
-    }
-
-    // 스피너 사용(식물 고르기)
-    inner class AlarmSpinnerListerner : AdapterView.OnItemSelectedListener{
-        override fun onNothingSelected(parent: AdapterView<*>?) {
-            //test.text = "error error"
-        }
-
-        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-            //test.text = myalarmlist[position]
-        }
-    }
-
-    fun showSpinner(){
-        selectspinner.adapter = ArrayAdapter(context!!, android.R.layout.simple_spinner_item, mylist)
-        selectspinner.onItemSelectedListener = AlarmSpinnerListerner()
     }
 
     // 리사이클러뷰 사용
@@ -134,6 +133,25 @@ class AlarmFragment : Fragment(){
             return myalarmlist.size
         }
     }
+
+    // 스피너 사용(식물 고르기)
+    inner class AlarmSpinnerListener : AdapterView.OnItemSelectedListener{
+        override fun onNothingSelected(parent: AdapterView<*>?) {
+        }
+
+        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        }
+
+    }
+//    inner class AlarmSpinnerListener : AdapterView.OnItemSelectedListener{
+//        override fun onNothingSelected(parent: AdapterView<*>?) {
+//            //test.text = "error error"
+//        }
+//
+//        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+////            text_time.text = myplantlist[position]
+//        }
+//    }
 
     fun addNewAlarm(){
         // 시간 선택
