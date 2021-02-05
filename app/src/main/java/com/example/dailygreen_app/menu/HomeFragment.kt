@@ -13,18 +13,23 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.example.dailygreen_app.MyListDetailActivity
 import com.example.dailygreen_app.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class HomeFragment : Fragment(){
     var auth : FirebaseAuth? = null
     var firestore : FirebaseFirestore? = null
+//    var storage : FirebaseStorage? = null
+//    var storageRef : StorageReference? = null
     var user : FirebaseUser? = null
 
     lateinit var recyclerview_home : RecyclerView
@@ -56,6 +61,9 @@ class HomeFragment : Fragment(){
         user = auth!!.currentUser
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
+//        // 파이어베이스 스토리지
+//        storage = FirebaseStorage.getInstance()
+//        storageRef = storage!!.reference
 
         // 파이어베이스에서 값 불러오기
         loadData()
@@ -87,12 +95,42 @@ class HomeFragment : Fragment(){
             var viewHolder = (holder as ViewHolder).itemView
             var name : TextView
             var species : TextView
+            var img_mylist : ImageView
 
             name = viewHolder.findViewById(R.id.name)
             species = viewHolder.findViewById(R.id.species)
+            img_mylist = viewHolder.findViewById(R.id.img_mylist)
 
             name.text = mylist!![position].name
             species.text = mylist!![position].species
+//            img_mylist.setB(storageRef.child("images/고무나무.png"))
+//            var storageRef =
+//                storage!!.getReferenceFromUrl("gs://dailygreen-app.appspot.com")
+//            val pathReference = storageRef.child("images/go.png")
+//            Glide.with(viewHolder).load(pathReference).into(img_mylist)
+
+            val storage = FirebaseStorage.getInstance("gs://dailygreen-app.appspot.com")
+            val storageRef = storage.reference
+            storageRef.child("images/고무나무.png").downloadUrl
+                .addOnSuccessListener { uri -> //이미지 로드 성공시
+                    Glide.with(viewHolder)
+                        .load(uri)
+                        .into(
+                            img_mylist
+                        )
+                }.addOnFailureListener { //이미지 로드 실패시
+                    Toast.makeText(
+                        activity,
+                        "실패",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+//            storageRef = storage?.getReference()?.child("images/고무나무.png")
+//            storageRef?.downloadUrl?.addOnCompleteListener {
+//                Glide.with(viewHolder).load(it.getResult()).into(img_mylist)
+//            }
+
 
             var test = name.text.toString()
 
