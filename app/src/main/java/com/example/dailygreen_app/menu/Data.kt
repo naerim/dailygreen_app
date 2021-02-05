@@ -12,7 +12,6 @@ data class MyList(
 // 식물 데이터
 data class Plants(
     var species : String? = null,
-    var name: String? = null,
     var sun : String? = null,
     var temperature : String? = null,
     var water : String? = null,

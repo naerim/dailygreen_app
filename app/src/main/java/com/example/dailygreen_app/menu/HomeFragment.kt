@@ -15,14 +15,18 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.dailygreen_app.MyListDetailActivity
 import com.example.dailygreen_app.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import java.util.*
 import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment(){
-
+    var auth : FirebaseAuth? = null
     var firestore : FirebaseFirestore? = null
+    var user : FirebaseUser? = null
+
     lateinit var recyclerview_home : RecyclerView
     lateinit var mylist: ArrayList<MyList>
     lateinit var plantlist : ArrayList<String>
@@ -47,16 +51,14 @@ class HomeFragment : Fragment(){
         plantlist = arrayListOf<String>()
         btn_addPlant = view.findViewById(R.id.btn_addPlant)
 
+        // 파이어베이스 인증 객체
+        auth = FirebaseAuth.getInstance()
+        user = auth!!.currentUser
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
 
         // 파이어베이스에서 값 불러오기
         loadData()
-
-        var a : String? = null
-        var b : String? = null
-
-        var c = a + b
 
         recyclerview_home = view.findViewById(R.id.recyclerview_home)
         recyclerview_home.adapter = RecyclerViewAdapter()
@@ -142,10 +144,12 @@ class HomeFragment : Fragment(){
             .setPositiveButton("등록"){ dialogInterFace, i ->
                 // 데이터값이 모두 존재하면 추가
                 if (edt_date.text.toString() != ""  && edt_name.text.toString() !=""){
-                    firestore?.collection("mylist")
-                        ?.add(hashMapOf("date" to edt_date.text.toString(), "species" to select_species, "name" to edt_name.text.toString()))
-                        ?.addOnSuccessListener{}
-                        ?.addOnFailureListener{}
+                    if (user != null) {
+                        firestore?.collection("users")?.document(user!!.uid)?.collection("mylist")
+                            ?.add(hashMapOf("date" to edt_date.text.toString(), "species" to select_species, "name" to edt_name.text.toString()))
+                            ?.addOnSuccessListener{}
+                            ?.addOnFailureListener{}
+                    }
                     recyclerview_home.adapter?.notifyDataSetChanged()
                 }
             }
@@ -156,16 +160,19 @@ class HomeFragment : Fragment(){
     // 파이어베이스에서 데이터 불러오는 함수
     fun loadData(){
         // 키우는 식물 리스트 불러오기
-        firestore?.collection("mylist")?.orderBy("date", Query.Direction.DESCENDING)
-            ?.addSnapshotListener { value, error ->
-            mylist.clear()
-            for (snapshot in value!!.documents){
-                var item = snapshot.toObject(MyList::class.java)
-                if (item != null) {
-                    mylist.add(item)
+        if (user != null) {
+            firestore?.collection("users")?.document(user!!.uid)
+                ?.collection("mylist")?.orderBy("date", Query.Direction.DESCENDING)
+                ?.addSnapshotListener { value, error ->
+                    mylist.clear()
+                    for (snapshot in value!!.documents){
+                        var item = snapshot.toObject(MyList::class.java)
+                        if (item != null) {
+                            mylist.add(item)
+                        }
+                    }
+                    recyclerview_home.adapter?.notifyDataSetChanged()
                 }
-            }
-            recyclerview_home.adapter?.notifyDataSetChanged()
         }
 
         // 앱에 저장되어 있는 식물 종류 불러오기

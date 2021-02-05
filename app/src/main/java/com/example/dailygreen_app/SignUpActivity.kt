@@ -9,8 +9,10 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SignUpActivity : AppCompatActivity() {
+    var firestore : FirebaseFirestore? = null
     var auth : FirebaseAuth? = null
     lateinit var edt_email : EditText
     lateinit var edt_password : EditText
@@ -22,6 +24,8 @@ class SignUpActivity : AppCompatActivity() {
 
         // 파이어베이스 인증 객체
         auth = FirebaseAuth.getInstance()
+        // 파이어스토어 인스턴스 초기화
+        firestore = FirebaseFirestore.getInstance()
 
         edt_email = findViewById(R.id.edt_email_login)
         edt_password = findViewById(R.id.edt_password)
@@ -44,6 +48,12 @@ class SignUpActivity : AppCompatActivity() {
             ?.addOnCompleteListener {
                 task ->
                 if(task.isSuccessful){
+                    // users에 추가
+                    var user = auth!!.currentUser
+                    if (user != null) {
+                        firestore?.collection("users")?.document(user.uid)
+                            ?.set(hashMapOf("email" to edt_email.text.toString(), "password" to edt_password.text.toString()))
+                    }
                     Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
                     moveLoginPage(task.result?.user)
                 }else{
