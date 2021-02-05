@@ -34,8 +34,9 @@ class AlarmFragment : Fragment(){
     lateinit var text_time : TextView
     lateinit var selectspinner: Spinner
     lateinit var alarmManager: AlarmManager
-    lateinit var textTime : TextView
-    lateinit var textDate : TextView
+
+    lateinit var pick_time : TextView
+    lateinit var pick_date : TextView
 
     lateinit var spinnerAdapter : ArrayAdapter<String>
     lateinit var select_plant : String
@@ -71,8 +72,8 @@ class AlarmFragment : Fragment(){
 
         // 알람등록
         btn_checkdate.setOnClickListener {
-            textDate = view!!.findViewById(R.id.text_date)
-            textTime = view!!.findViewById(R.id.text_time)
+            pick_date = view!!.findViewById(R.id.text_date)
+            pick_time = view!!.findViewById(R.id.text_time)
             checkAlarm()
         }
 
@@ -135,12 +136,12 @@ class AlarmFragment : Fragment(){
         var minute = calendar.get(Calendar.MINUTE)
 
         var picktime = TimePickerDialog(context!!, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            textTime.setText("" + hourOfDay + " : " + minute)
+            pick_time.setText("" + hourOfDay + " : " + minute)
         }, hour, minute, true)
         picktime.show()
         // 날짜 선택
         var pickdate = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, day ->
-            textDate.setText("" + year + ". " +  (month+1) + ". " + day)
+            pick_date.setText("" + year + ". " +  (month+1) + ". " + day)
         }, year, month, day)
         pickdate.show()
 
@@ -155,7 +156,7 @@ class AlarmFragment : Fragment(){
     fun addAlarm()
     {
         firestore?.collection("alarm")
-            ?.add(hashMapOf("time" to textTime.text.toString(), "date" to textDate.text.toString()))
+            ?.add(hashMapOf("name" to select_plant, "time" to pick_time.text.toString(), "date" to pick_date.text.toString()))
             ?.addOnSuccessListener { }
             ?.addOnFailureListener { }
         recyclerview_alarm.adapter?.notifyDataSetChanged()

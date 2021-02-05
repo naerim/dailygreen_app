@@ -24,6 +24,7 @@ data class Plants(
 
 // 알람 데이터
 data class Alarm(
+    var name : String? = null,
     var time : String? = null,
     var date : String? = null
 )
