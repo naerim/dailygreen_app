@@ -28,13 +28,14 @@ class AlarmFragment : Fragment(){
     lateinit var myalarmlist : ArrayList<Alarm>
     lateinit var myplantlist : ArrayList<String>
 
-    lateinit var btn_addAlarm : Button
+    lateinit var btn_checkdate : Button
+    lateinit var btn_addalarm : Button
     lateinit var calendar : GregorianCalendar
     lateinit var text_time : TextView
     lateinit var selectspinner: Spinner
     lateinit var alarmManager: AlarmManager
-    lateinit var textTime : String
-    lateinit var textDate : String
+    lateinit var textTime : TextView
+    lateinit var textDate : TextView
 
     lateinit var spinnerAdapter : ArrayAdapter<String>
     lateinit var select_plant : String
@@ -44,7 +45,8 @@ class AlarmFragment : Fragment(){
 
         myalarmlist = arrayListOf<Alarm>()
         myplantlist = arrayListOf<String>()
-        btn_addAlarm = view.findViewById(R.id.btn_addalarm)
+        btn_checkdate = view.findViewById(R.id.btn_checkdate)
+        btn_addalarm = view.findViewById(R.id.btn_addalarm)
         text_time = view.findViewById(R.id.text_time)
         recyclerview_alarm = view.findViewById(R.id.recyclerview_alarm)
         selectspinner = view.findViewById(R.id.spinner_alarmpick)
@@ -68,9 +70,13 @@ class AlarmFragment : Fragment(){
         recyclerview_alarm.layoutManager = LinearLayoutManager(activity)
 
         // 알람등록
-        btn_addAlarm.setOnClickListener {
-            textDate = ""
-            textTime = ""
+        btn_checkdate.setOnClickListener {
+            textDate = view!!.findViewById(R.id.text_date)
+            textTime = view!!.findViewById(R.id.text_time)
+            checkAlarm()
+        }
+
+        btn_addalarm.setOnClickListener {
             addAlarm()
         }
 
@@ -114,14 +120,12 @@ class AlarmFragment : Fragment(){
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             select_plant = myplantlist[position]
         }
-
     }
 
-    fun addAlarm(){
+    fun checkAlarm(){
         // 시간 선택
-        //var timeSetListener = TimePickerDialog.OnTimeSetListener(calendar.get(Calendar.HOUR_OF_DAY))
-////        var textDate: String? =null
-//        var textTime: String? = null
+//        textDate = view!!.findViewById(R.id.text_date)
+//        textTime = view!!.findViewById(R.id.text_time)
 
         calendar = Calendar.getInstance() as GregorianCalendar
         var year = calendar.get(Calendar.YEAR)
@@ -131,18 +135,27 @@ class AlarmFragment : Fragment(){
         var minute = calendar.get(Calendar.MINUTE)
 
         var picktime = TimePickerDialog(context!!, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            textTime = hourOfDay.toString() + ": " + minute.toString()
+            textTime.setText("" + hourOfDay + " : " + minute)
         }, hour, minute, true)
         picktime.show()
         // 날짜 선택
         var pickdate = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, day ->
-            textDate = ("" + year + ". " +  (month+1) + ". " + day)
+            textDate.setText("" + year + ". " +  (month+1) + ". " + day)
         }, year, month, day)
         pickdate.show()
 
 
+//        firestore?.collection("alarm")
+//            ?.add(hashMapOf("time" to textTime, "date" to textDate))
+//            ?.addOnSuccessListener { }
+//            ?.addOnFailureListener { }
+//        recyclerview_alarm.adapter?.notifyDataSetChanged()
+    }
+
+    fun addAlarm()
+    {
         firestore?.collection("alarm")
-            ?.add(hashMapOf("time" to textTime, "date" to textDate))
+            ?.add(hashMapOf("time" to textTime.text.toString(), "date" to textDate.text.toString()))
             ?.addOnSuccessListener { }
             ?.addOnFailureListener { }
         recyclerview_alarm.adapter?.notifyDataSetChanged()
