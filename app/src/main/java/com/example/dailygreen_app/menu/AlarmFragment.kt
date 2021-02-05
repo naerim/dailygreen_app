@@ -1,22 +1,25 @@
 package com.example.dailygreen_app.menu
 
-import android.app.AlarmManager
-import android.app.AlertDialog
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import android.app.*
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.AlarmManagerCompat.setExactAndAllowWhileIdle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dailygreen_app.R
 import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
+import java.time.Month
+import java.time.MonthDay
+import java.time.Year
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
@@ -41,6 +44,8 @@ class AlarmFragment : Fragment(){
     lateinit var spinnerAdapter : ArrayAdapter<String>
     lateinit var select_plant : String
 
+
+
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_alarm, container, false)
 
@@ -60,6 +65,9 @@ class AlarmFragment : Fragment(){
         // 알람 관리자 소환
         alarmManager = getActivity()!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+        // 알람 설정
+        calendar = Calendar.getInstance() as GregorianCalendar
+
         // 파이어베이스에서 데이터 불러오기
         loadData()
 
@@ -71,6 +79,13 @@ class AlarmFragment : Fragment(){
         recyclerview_alarm.layoutManager = LinearLayoutManager(activity)
 
         // 알람등록
+//        year = calendar.get(Calendar.YEAR)
+//        month = calendar.get(Calendar.MONTH)
+//        day = calendar.get(Calendar.DAY_OF_MONTH)
+//        hour = calendar.get(Calendar.HOUR)
+//        minute = calendar.get(Calendar.MINUTE)
+
+
         btn_checkdate.setOnClickListener {
             pick_date = view!!.findViewById(R.id.text_date)
             pick_time = view!!.findViewById(R.id.text_time)
@@ -79,7 +94,9 @@ class AlarmFragment : Fragment(){
 
         btn_addalarm.setOnClickListener {
             addAlarm()
+            setAlarm()
         }
+
 
         return view
     }
@@ -146,11 +163,6 @@ class AlarmFragment : Fragment(){
         pickdate.show()
 
 
-//        firestore?.collection("alarm")
-//            ?.add(hashMapOf("time" to textTime, "date" to textDate))
-//            ?.addOnSuccessListener { }
-//            ?.addOnFailureListener { }
-//        recyclerview_alarm.adapter?.notifyDataSetChanged()
     }
 
     fun addAlarm()
@@ -160,7 +172,46 @@ class AlarmFragment : Fragment(){
             ?.addOnSuccessListener { }
             ?.addOnFailureListener { }
         recyclerview_alarm.adapter?.notifyDataSetChanged()
+        var inputtime = pick_time.toString()
+        var token = inputtime.split(" : ")
+        var alhour = token[0].toInt()
+        var alminute = token[1].toInt()
+        Toast.makeText(context, "setalarm실행   "+ alhour + "시" + alminute, Toast.LENGTH_LONG).show()
     }
+
+    fun setAlarm(){
+//        var inputtime = text_time.toString()
+//        var token = inputtime.split(":")
+//        hour = token[0].toInt()
+//        minute = token[1].toInt()
+//        Toast.makeText(context, "setalarm실행   "+ hour + "시" + minute, Toast.LENGTH_LONG).show()
+//        //var inputdate = pick_date.toString()
+//        var setcalendar = GregorianCalendar(year, month, day, hour, minute)
+//        Toast.makeText(context, "setalarm실행   "+ hour + "시" + minute, Toast.LENGTH_LONG).show()
+//        //Toast.makeText(context, "setalarm실행", Toast.LENGTH_SHORT).show()
+//        val intent = Intent(getActivity(), ShowalarmActivity::class.java)
+//        //startActivity(intent)
+//        val pendingIntent = PendingIntent.getActivity(context, 30, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+//            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
+//            Toast.makeText(context, "버전1 실행", Toast.LENGTH_SHORT).show()
+//        } else{
+//            alarmManager.setExact(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
+//            Toast.makeText(context, "버전2 실행", Toast.LENGTH_SHORT).show()
+//        }
+    }
+
+//    fun setAlarm(context: Context){
+//        //val setcalendar = Calendar.getInstance()
+//        calendar.set(Calendar.HOUR_OF_DAY, hour)
+//        calendar.set(Calendar.MINUTE, minute)
+//        calendar.set(Calendar.YEAR, year)
+//        calendar.set(Calendar.MONTH, month)
+//        calendar.set(Calendar.DAY_OF_MONTH,day)
+//
+//        var intent = Intent(context, MAl::class.java)
+//
+//    }
 
     fun loadData(){
         // 파이어베이스에서 알람 리스트 불러오기
