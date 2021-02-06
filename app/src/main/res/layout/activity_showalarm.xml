@@ -11,18 +11,23 @@
         android:layout_width="363dp"
         android:layout_height="191dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="150dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mainlogotext" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/btn_stopalarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="52dp"
-        android:text="Button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/roundbutton"
+        android:backgroundTint="@color/bottomcolor"
+        android:text="확인"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView7" />
 </androidx.constraintlayout.widget.ConstraintLayout>

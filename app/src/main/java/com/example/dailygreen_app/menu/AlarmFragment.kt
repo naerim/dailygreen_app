@@ -88,14 +88,6 @@ class AlarmFragment : Fragment(){
         recyclerview_alarm.adapter = RecyclerViewAdapter()
         recyclerview_alarm.layoutManager = LinearLayoutManager(activity)
 
-        // 알람등록
-//        year = calendar.get(Calendar.YEAR)
-//        month = calendar.get(Calendar.MONTH)
-//        day = calendar.get(Calendar.DAY_OF_MONTH)
-//        hour = calendar.get(Calendar.HOUR)
-//        minute = calendar.get(Calendar.MINUTE)
-
-
         btn_checkdate.setOnClickListener {
             pick_date = view!!.findViewById(R.id.text_date)
             pick_time = view!!.findViewById(R.id.text_time)
@@ -151,10 +143,6 @@ class AlarmFragment : Fragment(){
     }
 
     fun checkAlarm(){
-        // 시간 선택
-//        textDate = view!!.findViewById(R.id.text_date)
-//        textTime = view!!.findViewById(R.id.text_time)
-
         calendar = Calendar.getInstance() as GregorianCalendar
         var year = calendar.get(Calendar.YEAR)
         var month = calendar.get(Calendar.MONTH)
@@ -176,8 +164,6 @@ class AlarmFragment : Fragment(){
             testmonth = month
         }, year, month, day)
         pickdate.show()
-
-
     }
 
     fun addAlarm()
@@ -194,37 +180,17 @@ class AlarmFragment : Fragment(){
 
       fun setAlarm(){
           alarmid++
-//        var inputtime = text_time.toString()
-//        var token = inputtime.split(":")
-//        hour = token[0].toInt()
-//        minute = token[1].toInt()
-//        Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
-        //var inputdate = pick_date.toString()
+
         var setcalendar = GregorianCalendar(testyear, testmonth, testday, testhour, testmin)
-          Toast.makeText(context, "setalarm실행   "+ testmonth + "/" + testhour + "시" + testmin, Toast.LENGTH_LONG).show()
         val intent = Intent(getActivity(), ShowalarmActivity::class.java)
-        //startActivity(intent)
         val pendingIntent = PendingIntent.getActivity(context, alarmid, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
-            Toast.makeText(context, "버전1 실행", Toast.LENGTH_SHORT).show()
         } else{
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
-            Toast.makeText(context, "버전2 실행", Toast.LENGTH_SHORT).show()
         }
     }
-
-//    fun setAlarm(context: Context){
-//        //val setcalendar = Calendar.getInstance()
-//        calendar.set(Calendar.HOUR_OF_DAY, hour)
-//        calendar.set(Calendar.MINUTE, minute)
-//        calendar.set(Calendar.YEAR, year)
-//        calendar.set(Calendar.MONTH, month)
-//        calendar.set(Calendar.DAY_OF_MONTH,day)
-//
-//        var intent = Intent(context, MAl::class.java)
-//
-//    }
 
     fun loadData(){
         // 파이어베이스에서 알람 리스트 불러오기
@@ -248,17 +214,5 @@ class AlarmFragment : Fragment(){
             spinnerAdapter.notifyDataSetChanged()
         }
     }
-
-//    fun showDialog(){
-//        val builder = AlertDialog.Builder(activity)
-//        val dialogView = layoutInflater.inflate(R.layout.dialog_alarm, null)
-//        val dialogText = dialogView.findViewById<TextView>(R.id.textView_test)
-//
-//        builder.setView(dialogView)
-//            .setPositiveButton("확인"){ dialogInterFace, i ->
-//            }
-//            .setNegativeButton("취소", null)
-//            .show()
-//    }
 
 }
