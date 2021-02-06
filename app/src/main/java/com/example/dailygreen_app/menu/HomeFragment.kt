@@ -156,7 +156,8 @@ class HomeFragment : Fragment(){
                 if (edt_date.text.toString() != ""  && edt_name.text.toString() !=""){
                     if (user != null) {
                         firestore?.collection("users")?.document(user!!.uid)?.collection("mylist")
-                            ?.add(hashMapOf("date" to edt_date.text.toString(), "species" to select_species, "name" to edt_name.text.toString()))
+                            ?.document(edt_name.text.toString())
+                            ?.set(hashMapOf("date" to edt_date.text.toString(), "species" to select_species, "name" to edt_name.text.toString()))
                             ?.addOnSuccessListener{}
                             ?.addOnFailureListener{}
                     }
