@@ -1,6 +1,7 @@
 package com.example.dailygreen_app.menu
 
-import java.util.*
+import com.example.dailygreen_app.R
+import java.lang.Exception
 
 // 내가 키우는 식물 리스트
 data class MyList(
@@ -26,3 +27,27 @@ data class Alarm(
     var time : String? = null,
     var date : String? = null
 )
+
+var ImageList = hashMapOf(
+    "고무나무" to "plant_gomu",
+    "호야" to "plant_hoya"
+)
+
+// 종에 해당하는 이미지 찾아서 아이디값 반환
+fun setImage(species: String?): Int? {
+    var imgName = ImageList["$species"]
+    var resId = imgName?.let { R.drawable::class.java.getId(it) }
+    return resId
+}
+
+inline fun <reified T : Class<R.drawable>> T.getId(resourceName: String): Int {
+    return try{
+        val idField = getDeclaredField(resourceName)
+        idField.getInt(idField)
+    } catch (e:Exception){
+        e.printStackTrace()
+        -1
+    }
+}
+
+
