@@ -166,7 +166,7 @@ class AlarmFragment : Fragment(){
             pick_time.setText("" + hourOfDay + " : " + minute)
             testhour = hourOfDay
             testmin = minute
-        }, hour, minute, true)
+        }, hour, minute, false)
         picktime.show()
         // 날짜 선택
         var pickdate = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, day ->
@@ -201,7 +201,7 @@ class AlarmFragment : Fragment(){
 //        Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
         //var inputdate = pick_date.toString()
         var setcalendar = GregorianCalendar(testyear, testmonth, testday, testhour, testmin)
-          Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
+          Toast.makeText(context, "setalarm실행   "+ testmonth + "/" + testhour + "시" + testmin, Toast.LENGTH_LONG).show()
         val intent = Intent(getActivity(), ShowalarmActivity::class.java)
         //startActivity(intent)
         val pendingIntent = PendingIntent.getActivity(context, alarmid, intent, PendingIntent.FLAG_UPDATE_CURRENT)
