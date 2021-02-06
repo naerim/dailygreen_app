@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import java.util.*
 
 
@@ -111,7 +110,7 @@ class HomeFragment : Fragment(){
 
             val storage = FirebaseStorage.getInstance("gs://dailygreen-app.appspot.com")
             val storageRef = storage.reference
-            storageRef.child("images/고무나무.png").downloadUrl
+            storageRef.child("images/gomu.png").downloadUrl
                 .addOnSuccessListener { uri -> //이미지 로드 성공시
                     Glide.with(viewHolder)
                         .load(uri)
