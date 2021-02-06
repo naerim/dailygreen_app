@@ -7,7 +7,8 @@ import java.lang.Exception
 data class MyList(
     var name : String? = null,
     var species : String? = null,
-    var date: String? = null
+    var date: String? = null,
+    var id: String? = null
 )
 
 // 식물 데이터

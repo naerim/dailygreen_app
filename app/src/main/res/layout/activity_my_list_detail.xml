@@ -96,11 +96,12 @@
         app:layout_constraintTop_toBottomOf="@+id/text_tip_mylist_detail" />
 
     <Button
+        android:id="@+id/btn_edit_mylist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="83dp"
-        android:text="Button"
+        android:text="수정"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_tip_mylist_detail" />
 

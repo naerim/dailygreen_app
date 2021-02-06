@@ -24,6 +24,7 @@ class MyListDetailActivity : AppCompatActivity() {
     lateinit var text_date_mylist_detail : TextView
     lateinit var text_tip_mylist_detail : TextView
     lateinit var btn_delete_mylist : Button
+    lateinit var btn_edit_mylist : Button
     lateinit var spinner : Spinner
     lateinit var edt_date : EditText
     lateinit var btn_date : Button
@@ -35,6 +36,7 @@ class MyListDetailActivity : AppCompatActivity() {
     var name : String? = null
     var species : String? = null
     var date : String? = null
+    var id : String? = null
     lateinit var mylist: ArrayList<MyList>
     lateinit var itemInfo : ArrayList<Plants>
     lateinit var plantlist: ArrayList<String>
@@ -51,6 +53,7 @@ class MyListDetailActivity : AppCompatActivity() {
         text_date_mylist_detail = findViewById(R.id.text_date_mylist_detail)
         text_tip_mylist_detail = findViewById(R.id.text_tip_mylist_detail)
         btn_delete_mylist = findViewById(R.id.btn_delete_mylist)
+        btn_edit_mylist = findViewById(R.id.btn_edit_mylist)
 
         mylist = arrayListOf<MyList>()
         itemInfo = arrayListOf<Plants>()
@@ -66,6 +69,7 @@ class MyListDetailActivity : AppCompatActivity() {
         name = intent.getStringExtra("name")
         species = intent.getStringExtra("species")
         date = intent.getStringExtra("date")
+        id = intent.getStringExtra("id")
         text_plantname_mylist_detail.text = name
         text_species_mylist_detail.text = species
         text_date_mylist_detail.text = date
@@ -84,6 +88,8 @@ class MyListDetailActivity : AppCompatActivity() {
         }
 
 
+
+
 //        firestore?.collection("users")?.document(user!!.uid)?.collection("mylist")
 //            ?.whereEqualTo("name", "$name")
 //            ?.addSnapshotListener { value, error ->
@@ -97,6 +103,14 @@ class MyListDetailActivity : AppCompatActivity() {
 //                }
 //            }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 나의 리스트 수정
+        btn_edit_mylist.setOnClickListener {
+            showEditDialog()
+        }
     }
 
     // 스피너 사용
@@ -142,7 +156,7 @@ class MyListDetailActivity : AppCompatActivity() {
         val alertDialog = AlertDialog.Builder(this)
             .setPositiveButton("확인") {dialog, which ->
                 firestore?.collection("users")?.document(user!!.uid)?.collection("mylist")
-                    ?.document("$name")
+                    ?.document("$id")
                     ?.delete()
                     ?.addOnSuccessListener {
                         finish()
@@ -156,5 +170,53 @@ class MyListDetailActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
+    fun showEditDialog(){
+        // 다이얼로그
+        val builder = AlertDialog.Builder(this)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_addmylist, null)
 
+        spinner = dialogView.findViewById<Spinner>(R.id.spinner)!!
+        edt_date = dialogView.findViewById(R.id.edt_date)
+        btn_date = dialogView.findViewById(R.id.btn_date)
+        edt_name = dialogView.findViewById(R.id.edt_name)
+
+        btn_date.setOnClickListener {
+            showDate()
+        }
+
+        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, plantlist)
+        spinner.onItemSelectedListener = MySpinnerListener()
+
+        builder.setView(dialogView)
+            .setPositiveButton("확인"){ dialogInterFace, i ->
+                // 데이터값이 모두 존재하면 수정
+                if (edt_date.text.toString() != ""  && edt_name.text.toString() !=""){
+                    if (user != null) {
+                        firestore?.collection("users")?.document(user!!.uid)?.collection("mylist")
+                            ?.document("$id")
+                            ?.update(hashMapOf("date" to edt_date.text.toString(), "species" to select_species, "name" to edt_name.text.toString()) as Map<String, Any>)
+                            ?.addOnSuccessListener{
+                                finish()
+                                Toast.makeText(this, "수정되었습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                            ?.addOnFailureListener{}
+                    }
+                }
+            }
+            .setNegativeButton("취소", null)
+            .show()
+    }
+
+    fun showDate(){
+        var calendar = Calendar.getInstance()
+        var year = calendar.get(Calendar.YEAR)
+        var month = calendar.get(Calendar.MONTH)
+        var day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        var pickdate = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, year, month, day ->
+            edt_date.setText("" + year + "." + (month+1) + "." + day)
+        }, year, month, day)
+
+        pickdate.show()
+    }
 }

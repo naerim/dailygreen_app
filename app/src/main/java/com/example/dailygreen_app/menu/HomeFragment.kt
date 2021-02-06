@@ -97,6 +97,7 @@ class HomeFragment : Fragment(){
             name.text = mylist!![position].name
             species.text = mylist!![position].species
             var date : String = mylist[position].date.toString()
+            var id : String? = mylist[position].id
 
             // 이미지 설정
             var imgId = setImage(species.text as String?)
@@ -110,6 +111,7 @@ class HomeFragment : Fragment(){
                 intent.putExtra("name", name.text.toString())
                 intent.putExtra("species", species.text.toString())
                 intent.putExtra("date", date)
+                intent.putExtra("id", id)
                 ContextCompat.startActivity(viewHolder.context, intent, null)
                 Toast.makeText(viewHolder.context,"성공", Toast.LENGTH_SHORT).show()
             }
@@ -155,9 +157,14 @@ class HomeFragment : Fragment(){
                 // 데이터값이 모두 존재하면 추가
                 if (edt_date.text.toString() != ""  && edt_name.text.toString() !=""){
                     if (user != null) {
+                        // 랜덤 아이
+                        val random = Random()
+                        val id : Int = random.nextInt(1000)
+                        val idString : String = id.toString()
+
                         firestore?.collection("users")?.document(user!!.uid)?.collection("mylist")
-                            ?.document(edt_name.text.toString())
-                            ?.set(hashMapOf("date" to edt_date.text.toString(), "species" to select_species, "name" to edt_name.text.toString()))
+                            ?.document("$idString")
+                            ?.set(hashMapOf("id" to idString, "date" to edt_date.text.toString(), "species" to select_species, "name" to edt_name.text.toString()))
                             ?.addOnSuccessListener{}
                             ?.addOnFailureListener{}
                     }
