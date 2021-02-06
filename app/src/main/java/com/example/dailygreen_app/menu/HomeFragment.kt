@@ -93,20 +93,23 @@ class HomeFragment : Fragment(){
             species = viewHolder.findViewById(R.id.species)
             img_mylist = viewHolder.findViewById(R.id.img_mylist)
 
+            // 리사이클러뷰 아이템 정보
             name.text = mylist!![position].name
             species.text = mylist!![position].species
+            var date : String = mylist[position].date.toString()
 
-            // 이미지 설
+            // 이미지 설정
             var imgId = setImage(species.text as String?)
             if (imgId != null) {
                 img_mylist.setImageResource(imgId)
             }
 
-            // 클릭이벤트
+            // 클릭이벤트(디테일뷰로 넘어감)
             viewHolder.setOnClickListener {
                 val intent = Intent(viewHolder?.context, MyListDetailActivity::class.java)
                 intent.putExtra("name", name.text.toString())
                 intent.putExtra("species", species.text.toString())
+                intent.putExtra("date", date)
                 ContextCompat.startActivity(viewHolder.context, intent, null)
                 Toast.makeText(viewHolder.context,"성공", Toast.LENGTH_SHORT).show()
             }
