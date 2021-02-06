@@ -22,6 +22,7 @@ import java.time.MonthDay
 import java.time.Year
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.min
 import kotlin.properties.Delegates
 
 class AlarmFragment : Fragment(){
@@ -44,11 +45,20 @@ class AlarmFragment : Fragment(){
     lateinit var spinnerAdapter : ArrayAdapter<String>
     lateinit var select_plant : String
 
+    // 알람 셋팅
+    var testhour by Delegates.notNull<Int>()
+    var testmin by Delegates.notNull<Int>()
+    var testday by Delegates.notNull<Int>()
+    var testyear by Delegates.notNull<Int>()
+    var testmonth by Delegates.notNull<Int>()
+
+    var alarmid by Delegates.notNull<Int>()
 
 
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_alarm, container, false)
 
+        alarmid = 0
         myalarmlist = arrayListOf<Alarm>()
         myplantlist = arrayListOf<String>()
         btn_checkdate = view.findViewById(R.id.btn_checkdate)
@@ -154,11 +164,16 @@ class AlarmFragment : Fragment(){
 
         var picktime = TimePickerDialog(context!!, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
             pick_time.setText("" + hourOfDay + " : " + minute)
+            testhour = hourOfDay
+            testmin = minute
         }, hour, minute, true)
         picktime.show()
         // 날짜 선택
         var pickdate = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, day ->
             pick_date.setText("" + year + ". " +  (month+1) + ". " + day)
+            testday = day
+            testyear = year
+            testmonth = month
         }, year, month, day)
         pickdate.show()
 
@@ -172,33 +187,31 @@ class AlarmFragment : Fragment(){
             ?.addOnSuccessListener { }
             ?.addOnFailureListener { }
         recyclerview_alarm.adapter?.notifyDataSetChanged()
-        var inputtime = pick_time.toString()
-        var token = inputtime.split(" : ")
-        var alhour = token[0].toInt()
-        var alminute = token[1].toInt()
-        Toast.makeText(context, "setalarm실행   "+ alhour + "시" + alminute, Toast.LENGTH_LONG).show()
+//
+//        Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
+//        Toast.makeText(context, "이번엔 과연 일이 " + testday, Toast.LENGTH_LONG).show()
     }
 
-    fun setAlarm(){
+      fun setAlarm(){
+          alarmid++
 //        var inputtime = text_time.toString()
 //        var token = inputtime.split(":")
 //        hour = token[0].toInt()
 //        minute = token[1].toInt()
-//        Toast.makeText(context, "setalarm실행   "+ hour + "시" + minute, Toast.LENGTH_LONG).show()
-//        //var inputdate = pick_date.toString()
-//        var setcalendar = GregorianCalendar(year, month, day, hour, minute)
-//        Toast.makeText(context, "setalarm실행   "+ hour + "시" + minute, Toast.LENGTH_LONG).show()
-//        //Toast.makeText(context, "setalarm실행", Toast.LENGTH_SHORT).show()
-//        val intent = Intent(getActivity(), ShowalarmActivity::class.java)
-//        //startActivity(intent)
-//        val pendingIntent = PendingIntent.getActivity(context, 30, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-//            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
-//            Toast.makeText(context, "버전1 실행", Toast.LENGTH_SHORT).show()
-//        } else{
-//            alarmManager.setExact(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
-//            Toast.makeText(context, "버전2 실행", Toast.LENGTH_SHORT).show()
-//        }
+//        Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
+        //var inputdate = pick_date.toString()
+        var setcalendar = GregorianCalendar(testyear, testmonth, testday, testhour, testmin)
+          Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
+        val intent = Intent(getActivity(), ShowalarmActivity::class.java)
+        //startActivity(intent)
+        val pendingIntent = PendingIntent.getActivity(context, alarmid, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
+            Toast.makeText(context, "버전1 실행", Toast.LENGTH_SHORT).show()
+        } else{
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
+            Toast.makeText(context, "버전2 실행", Toast.LENGTH_SHORT).show()
+        }
     }
 
 //    fun setAlarm(context: Context){
