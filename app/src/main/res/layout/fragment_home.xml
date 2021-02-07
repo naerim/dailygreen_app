@@ -9,36 +9,25 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="72dp"
         android:text="나의 반려식물"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="26sp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="오늘 하루도, 나의 반려식물과 함께"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="405dp"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,10 +49,10 @@
 
     <android.widget.Button
         android:id="@+id/btn_addPlant"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/plusplant"
         android:elevation="5dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"

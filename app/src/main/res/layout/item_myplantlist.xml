@@ -9,8 +9,8 @@
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
         android:layout_marginBottom="3dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="5dp"
@@ -24,7 +24,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="178dp"
             android:background="#FFFFFF">
 
             <TextView
@@ -52,7 +52,7 @@
             <ImageView
                 android:id="@+id/img_mylist"
                 android:layout_width="370dp"
-                android:layout_height="120dp"
+                android:layout_height="124dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

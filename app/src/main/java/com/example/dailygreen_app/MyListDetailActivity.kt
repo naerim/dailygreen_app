@@ -21,6 +21,7 @@ class MyListDetailActivity : AppCompatActivity() {
     lateinit var text_plantname_mylist_detail : TextView
     lateinit var img_mylist_detail : ImageView
     lateinit var text_species_mylist_detail : TextView
+    lateinit var text_species_mylist_detail1 : TextView
     lateinit var text_date_mylist_detail : TextView
     lateinit var text_tip_mylist_detail : TextView
     lateinit var btn_delete_mylist : Button
@@ -29,6 +30,7 @@ class MyListDetailActivity : AppCompatActivity() {
     lateinit var edt_date : EditText
     lateinit var btn_date : Button
     lateinit var edt_name : EditText
+    lateinit var btn_close: Button
 
     var auth : FirebaseAuth? = null
     var firestore : FirebaseFirestore? = null
@@ -50,10 +52,12 @@ class MyListDetailActivity : AppCompatActivity() {
         text_plantname_mylist_detail = findViewById(R.id.text_plantname_mylist_detail)
         img_mylist_detail = findViewById(R.id.img_mylist_detail)
         text_species_mylist_detail = findViewById(R.id.text_species_mylist_detail)
+        text_species_mylist_detail1 = findViewById(R.id.text_species_mylist_detail1)
         text_date_mylist_detail = findViewById(R.id.text_date_mylist_detail)
         text_tip_mylist_detail = findViewById(R.id.text_tip_mylist_detail)
         btn_delete_mylist = findViewById(R.id.btn_delete_mylist)
         btn_edit_mylist = findViewById(R.id.btn_edit_mylist)
+        btn_close = findViewById(R.id.btn_close)
 
         mylist = arrayListOf<MyList>()
         itemInfo = arrayListOf<Plants>()
@@ -72,6 +76,7 @@ class MyListDetailActivity : AppCompatActivity() {
         id = intent.getStringExtra("id")
         text_plantname_mylist_detail.text = name
         text_species_mylist_detail.text = species
+        text_species_mylist_detail1.text = species
         text_date_mylist_detail.text = date
 
         // 이미지뷰 설정
@@ -85,6 +90,10 @@ class MyListDetailActivity : AppCompatActivity() {
         // 나의 리스트에서 삭제
         btn_delete_mylist.setOnClickListener {
             showDeleteDialog()
+        }
+
+        btn_close.setOnClickListener {
+            finish()
         }
 
 
