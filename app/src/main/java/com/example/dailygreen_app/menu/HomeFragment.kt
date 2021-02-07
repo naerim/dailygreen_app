@@ -157,7 +157,7 @@ class HomeFragment : Fragment(){
                 // 데이터값이 모두 존재하면 추가
                 if (edt_date.text.toString() != ""  && edt_name.text.toString() !=""){
                     if (user != null) {
-                        // 랜덤 아이
+                        // 랜덤 아이디
                         val random = Random()
                         val id : Int = random.nextInt(1000)
                         val idString : String = id.toString()

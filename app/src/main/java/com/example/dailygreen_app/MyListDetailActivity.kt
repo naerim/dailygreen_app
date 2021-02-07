@@ -14,7 +14,6 @@ import com.example.dailygreen_app.menu.setImage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import java.util.*
 
 class MyListDetailActivity : AppCompatActivity() {
@@ -95,23 +94,6 @@ class MyListDetailActivity : AppCompatActivity() {
         btn_close.setOnClickListener {
             finish()
         }
-
-
-
-
-//        firestore?.collection("users")?.document(user!!.uid)?.collection("mylist")
-//            ?.whereEqualTo("name", "$name")
-//            ?.addSnapshotListener { value, error ->
-//                mylist.clear()
-//                for (snapshot in value!!.documents){
-//                    var item = snapshot.toObject(MyList::class.java)
-//                    if (item != null) {
-//                        mylist.add(item)
-//                        text_species_mylist_detail.text = mylist[0].species
-//                    }
-//                }
-//            }
-
     }
 
     override fun onResume() {

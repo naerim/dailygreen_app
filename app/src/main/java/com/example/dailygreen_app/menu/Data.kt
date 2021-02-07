@@ -27,9 +27,11 @@ data class Plants(
 data class Alarm(
     var name : String? = null,
     var time : String? = null,
-    var date : String? = null
+    var date : String? = null,
+    var id : String? = null
 )
 
+// 이미지 연결
 var ImageList = hashMapOf(
     "고무나무" to "plant_gomu",
     "호야" to "plant_hoya"
@@ -39,6 +41,18 @@ var ImageList = hashMapOf(
 fun setImage(species: String?): Int? {
     var imgName = ImageList["$species"]
     var resId = imgName?.let { R.drawable::class.java.getId(it) }
+    return resId
+}
+
+// 아이콘 연결
+var IconList = hashMapOf(
+    "공기정화" to "icon_fresh",
+    "반려동물" to "icon_pet"
+)
+
+fun setIcon(tag: String?): Int? {
+    var iconName = IconList["$tag"]
+    var resId = iconName?.let {R.drawable::class.java.getId(it)}
     return resId
 }
 

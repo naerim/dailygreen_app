@@ -15,7 +15,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dailygreen_app.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import org.w3c.dom.Text
 import java.time.Month
 import java.time.MonthDay
@@ -28,6 +31,8 @@ import kotlin.properties.Delegates
 class AlarmFragment : Fragment(){
 
     var firestore : FirebaseFirestore? = null
+    var auth : FirebaseAuth? = null
+    var user : FirebaseUser? = null
     lateinit var recyclerview_alarm : RecyclerView
     lateinit var myalarmlist : ArrayList<Alarm>
     lateinit var myplantlist : ArrayList<String>
@@ -67,6 +72,9 @@ class AlarmFragment : Fragment(){
         recyclerview_alarm = view.findViewById(R.id.recyclerview_alarm)
         selectspinner = view.findViewById(R.id.spinner_alarmpick)
 
+        // 파이어베이스 인증 객체
+        auth = FirebaseAuth.getInstance()
+        user = auth!!.currentUser
         // 파이어스토어 인스턴스 초기화
         firestore = FirebaseFirestore.getInstance()
 
@@ -98,8 +106,6 @@ class AlarmFragment : Fragment(){
             addAlarm()
             setAlarm()
         }
-
-
         return view
     }
 
@@ -166,19 +172,23 @@ class AlarmFragment : Fragment(){
         pickdate.show()
     }
 
+    // DB에 알람 추가
     fun addAlarm()
     {
-        firestore?.collection("alarm")
-            ?.add(hashMapOf("name" to select_plant, "time" to pick_time.text.toString(), "date" to pick_date.text.toString()))
+        val random = Random()
+        val id : Int = random.nextInt(1000)
+        val idString : String = id.toString()
+
+        firestore?.collection("users")?.document(user!!.uid)?.collection("alarm")
+            ?.document("$idString")
+            ?.set(hashMapOf("id" to idString, "name" to select_plant, "time" to pick_time.text.toString(), "date" to pick_date.text.toString()))
             ?.addOnSuccessListener { }
             ?.addOnFailureListener { }
         recyclerview_alarm.adapter?.notifyDataSetChanged()
-//
-//        Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
-//        Toast.makeText(context, "이번엔 과연 일이 " + testday, Toast.LENGTH_LONG).show()
     }
 
-      fun setAlarm(){
+    // 기기에 알람 설정
+    fun setAlarm(){
           alarmid++
 
         var setcalendar = GregorianCalendar(testyear, testmonth, testday, testhour, testmin)
@@ -194,23 +204,25 @@ class AlarmFragment : Fragment(){
 
     fun loadData(){
         // 파이어베이스에서 알람 리스트 불러오기
-        firestore?.collection("alarm")?.addSnapshotListener { value, error ->
-            myalarmlist.clear()
-            for(snapshot in value!!.documents){
-                var item = snapshot.toObject(Alarm::class.java)
-                if(item != null)
-                    myalarmlist.add(item)
+        firestore?.collection("users")?.document(user!!.uid)?.collection("alarm")
+            ?.addSnapshotListener { value, error ->
+                myalarmlist.clear()
+                for(snapshot in value!!.documents){
+                    var item = snapshot.toObject(Alarm::class.java)
+                    if(item != null)
+                        myalarmlist.add(item)
             }
             recyclerview_alarm.adapter?.notifyDataSetChanged()
         }
 
         // 파이어베이스에서 내 리스트 값 불러오기
-        firestore?.collection("mylist")?.addSnapshotListener { value, error ->
-            for(snapshot in value!!.documents){
-                var item = snapshot.toObject(MyList::class.java)
-                if(item != null)
-                    item.name?.let { myplantlist.add(it) }
-            }
+        firestore?.collection("users")?.document(user!!.uid)?.collection("mylist")
+            ?.addSnapshotListener { value, error ->
+                for(snapshot in value!!.documents){
+                    var item = snapshot.toObject(MyList::class.java)
+                    if(item != null)
+                        item.name?.let { myplantlist.add(it) }
+                }
             spinnerAdapter.notifyDataSetChanged()
         }
     }
