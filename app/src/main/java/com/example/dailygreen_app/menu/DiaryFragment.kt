@@ -89,6 +89,9 @@ class DiaryFragment : Fragment(){
 
             // 클릭이벤트
             viewHolder.setOnClickListener {
+                val listDiaryFragment = ListDiaryFragment()
+                fragmentManager?.beginTransaction()?.replace(R.id.main_content, listDiaryFragment)
+                    ?.commit()
 //                val intent = Intent(viewHolder?.context, MyListDetailActivity::class.java)
 //                intent.putExtra("name", name.text.toString())
 //                intent.putExtra("species", species.text.toString())
