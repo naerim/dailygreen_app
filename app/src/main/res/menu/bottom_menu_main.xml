@@ -16,12 +16,12 @@
         android:icon="@drawable/alarmicon"
         android:title="알람"/>
     <item
-        android:id="@+id/action_calender"
+        android:id="@+id/action_recommend"
         android:enabled="true"
         android:icon="@drawable/recommendicon"
         android:title="추천"/>
     <item
-        android:id="@+id/action_recommend"
+        android:id="@+id/action_setting"
         android:enabled="true"
         android:icon="@drawable/settingicon"
         android:title="설정"/>

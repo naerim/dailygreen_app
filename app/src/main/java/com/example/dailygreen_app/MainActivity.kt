@@ -34,14 +34,14 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(R.id.main_content, alarmFragment).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
-                R.id.action_calender -> {
-                    val calendarFragment = CalenderFragment()
-                    supportFragmentManager.beginTransaction().replace(R.id.main_content, calendarFragment).commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
                 R.id.action_recommend -> {
                     val recommendFragment = RecommendFragment()
                     supportFragmentManager.beginTransaction().replace(R.id.main_content, recommendFragment).commit()
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.action_setting -> {
+                    val settingFragment = SettingFragment()
+                    supportFragmentManager.beginTransaction().replace(R.id.main_content, settingFragment).commit()
                     return@setOnNavigationItemSelectedListener true
                 }
             }
