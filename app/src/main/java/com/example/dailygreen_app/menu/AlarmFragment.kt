@@ -1,24 +1,29 @@
 package com.example.dailygreen_app.menu
 
-import android.app.AlarmManager
-import android.app.AlertDialog
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
+import android.app.*
 import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.AlarmManagerCompat.setExactAndAllowWhileIdle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dailygreen_app.R
 import com.google.firebase.firestore.FirebaseFirestore
 import org.w3c.dom.Text
+import java.time.Month
+import java.time.MonthDay
+import java.time.Year
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.min
+import kotlin.properties.Delegates
 
 class AlarmFragment : Fragment(){
 
@@ -27,21 +32,37 @@ class AlarmFragment : Fragment(){
     lateinit var myalarmlist : ArrayList<Alarm>
     lateinit var myplantlist : ArrayList<String>
 
-    lateinit var btn_addAlarm : Button
+    lateinit var btn_checkdate : Button
+    lateinit var btn_addalarm : Button
     lateinit var calendar : GregorianCalendar
     lateinit var text_time : TextView
     lateinit var selectspinner: Spinner
     lateinit var alarmManager: AlarmManager
 
+    lateinit var pick_time : TextView
+    lateinit var pick_date : TextView
+
     lateinit var spinnerAdapter : ArrayAdapter<String>
     lateinit var select_plant : String
+
+    // 알람 셋팅
+    var testhour by Delegates.notNull<Int>()
+    var testmin by Delegates.notNull<Int>()
+    var testday by Delegates.notNull<Int>()
+    var testyear by Delegates.notNull<Int>()
+    var testmonth by Delegates.notNull<Int>()
+
+    var alarmid by Delegates.notNull<Int>()
+
 
     override fun onCreateView (inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle? ): View? {
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_alarm, container, false)
 
+        alarmid = 0
         myalarmlist = arrayListOf<Alarm>()
         myplantlist = arrayListOf<String>()
-        btn_addAlarm = view.findViewById(R.id.btn_addalarm)
+        btn_checkdate = view.findViewById(R.id.btn_checkdate)
+        btn_addalarm = view.findViewById(R.id.btn_addalarm)
         text_time = view.findViewById(R.id.text_time)
         recyclerview_alarm = view.findViewById(R.id.recyclerview_alarm)
         selectspinner = view.findViewById(R.id.spinner_alarmpick)
@@ -54,6 +75,9 @@ class AlarmFragment : Fragment(){
         // 알람 관리자 소환
         alarmManager = getActivity()!!.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
+        // 알람 설정
+        calendar = Calendar.getInstance() as GregorianCalendar
+
         // 파이어베이스에서 데이터 불러오기
         loadData()
 
@@ -64,14 +88,20 @@ class AlarmFragment : Fragment(){
         recyclerview_alarm.adapter = RecyclerViewAdapter()
         recyclerview_alarm.layoutManager = LinearLayoutManager(activity)
 
-        // 알람등록
-        btn_addAlarm.setOnClickListener {
-            addAlarm()
+        btn_checkdate.setOnClickListener {
+            pick_date = view!!.findViewById(R.id.text_date)
+            pick_time = view!!.findViewById(R.id.text_time)
+            checkAlarm()
         }
+
+        btn_addalarm.setOnClickListener {
+            addAlarm()
+            setAlarm()
+        }
+
 
         return view
     }
-
 
     // 리사이클러뷰 사용
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -110,15 +140,9 @@ class AlarmFragment : Fragment(){
         override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
             select_plant = myplantlist[position]
         }
-
     }
 
-    fun addAlarm(){
-        // 시간 선택
-        //var timeSetListener = TimePickerDialog.OnTimeSetListener(calendar.get(Calendar.HOUR_OF_DAY))
-        var textDate: TextView = view!!.findViewById(R.id.text_date)
-        var textTime: TextView = view!!.findViewById(R.id.text_time)
-
+    fun checkAlarm(){
         calendar = Calendar.getInstance() as GregorianCalendar
         var year = calendar.get(Calendar.YEAR)
         var month = calendar.get(Calendar.MONTH)
@@ -127,16 +151,45 @@ class AlarmFragment : Fragment(){
         var minute = calendar.get(Calendar.MINUTE)
 
         var picktime = TimePickerDialog(context!!, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            textTime.setText("" + hourOfDay + "시 " + minute + "분  ")
-        }, hour, minute, true)
+            pick_time.setText("" + hourOfDay + " : " + minute)
+            testhour = hourOfDay
+            testmin = minute
+        }, hour, minute, false)
         picktime.show()
         // 날짜 선택
         var pickdate = DatePickerDialog(context!!, DatePickerDialog.OnDateSetListener { view, year, month, day ->
-            textDate.setText("" + day + "/ " +  (month+1) + "/ " + year)
+            pick_date.setText("" + year + ". " +  (month+1) + ". " + day)
+            testday = day
+            testyear = year
+            testmonth = month
         }, year, month, day)
         pickdate.show()
+    }
 
-        //var calendar = GregorianCalendar(year, month, day, hour, minute)
+    fun addAlarm()
+    {
+        firestore?.collection("alarm")
+            ?.add(hashMapOf("name" to select_plant, "time" to pick_time.text.toString(), "date" to pick_date.text.toString()))
+            ?.addOnSuccessListener { }
+            ?.addOnFailureListener { }
+        recyclerview_alarm.adapter?.notifyDataSetChanged()
+//
+//        Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
+//        Toast.makeText(context, "이번엔 과연 일이 " + testday, Toast.LENGTH_LONG).show()
+    }
+
+      fun setAlarm(){
+          alarmid++
+
+        var setcalendar = GregorianCalendar(testyear, testmonth, testday, testhour, testmin)
+        val intent = Intent(getActivity(), ShowalarmActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(context, alarmid, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
+        } else{
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
+        }
     }
 
     fun loadData(){
@@ -160,18 +213,6 @@ class AlarmFragment : Fragment(){
             }
             spinnerAdapter.notifyDataSetChanged()
         }
-    }
-
-    fun showDialog(){
-        val builder = AlertDialog.Builder(activity)
-        val dialogView = layoutInflater.inflate(R.layout.dialog_alarm, null)
-        val dialogText = dialogView.findViewById<TextView>(R.id.textView_test)
-
-        builder.setView(dialogView)
-            .setPositiveButton("확인"){ dialogInterFace, i ->
-            }
-            .setNegativeButton("취소", null)
-            .show()
     }
 
 }
