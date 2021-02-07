@@ -2,7 +2,9 @@ package com.example.dailygreen_app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import com.example.dailygreen_app.menu.*
+import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +15,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         bottom_navigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-
+//        var fragmentTransaction = supportFragmentManager.beginTransaction()
+//
         val homeFragment = HomeFragment()
         supportFragmentManager.beginTransaction().add(R.id.main_content, homeFragment).commit()
 
@@ -48,5 +51,11 @@ class MainActivity : AppCompatActivity() {
             return@setOnNavigationItemSelectedListener false
         }
     }
+
+//    fun replaceFragment(fragment:Fragment){
+//        val fragmentManager = supportFragmentManager
+//        val fragmentTransient = fragmentManager.beginTransaction()
+//        fragmentTransient.replace((R.id.))
+//    }
 
 }
