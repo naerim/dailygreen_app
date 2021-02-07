@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.app.AlarmManagerCompat.setExactAndAllowWhileIdle
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -103,7 +104,6 @@ class AlarmFragment : Fragment(){
         }
 
         btn_addalarm.setOnClickListener {
-            addAlarm()
             setAlarm()
         }
         return view
@@ -123,12 +123,22 @@ class AlarmFragment : Fragment(){
             var viewHolder = (holder as ViewHolder).itemView
             var time : TextView
             var date : TextView
+            var btn_delete_alarm : Button
 
             date = viewHolder.findViewById(R.id.text_showtime)
             time = viewHolder.findViewById(R.id.text_showdate)
+            btn_delete_alarm = viewHolder.findViewById(R.id.btn_delete_alarm)
 
             time.text = myalarmlist!![position].time
             date.text = myalarmlist!![position].date
+            var id = myalarmlist!![position].id
+
+            // 알람 삭제
+            btn_delete_alarm.setOnClickListener {
+                if (id != null) {
+                    showDeleteDialog(id)
+                }
+            }
 
         }
 
@@ -173,26 +183,26 @@ class AlarmFragment : Fragment(){
     }
 
     // DB에 알람 추가
-    fun addAlarm()
+    fun addAlarm(id : Int)
     {
-        val random = Random()
-        val id : Int = random.nextInt(1000)
-        val idString : String = id.toString()
+        val idString = id.toString()
 
         firestore?.collection("users")?.document(user!!.uid)?.collection("alarm")
             ?.document("$idString")
             ?.set(hashMapOf("id" to idString, "name" to select_plant, "time" to pick_time.text.toString(), "date" to pick_date.text.toString()))
-            ?.addOnSuccessListener { }
+            ?.addOnSuccessListener {}
             ?.addOnFailureListener { }
         recyclerview_alarm.adapter?.notifyDataSetChanged()
     }
 
     // 기기에 알람 설정
     fun setAlarm(){
-          alarmid++
+        val random = Random()
+        val alarmid : Int = random.nextInt(1000)
 
         var setcalendar = GregorianCalendar(testyear, testmonth, testday, testhour, testmin)
         val intent = Intent(getActivity(), ShowalarmActivity::class.java)
+        intent.putExtra("id", alarmid.toString())
         val pendingIntent = PendingIntent.getActivity(context, alarmid, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
@@ -200,6 +210,7 @@ class AlarmFragment : Fragment(){
         } else{
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
         }
+        addAlarm(alarmid)
     }
 
     fun loadData(){
@@ -225,6 +236,24 @@ class AlarmFragment : Fragment(){
                 }
             spinnerAdapter.notifyDataSetChanged()
         }
+    }
+
+    fun showDeleteDialog(id : String){
+        val builder = AlertDialog.Builder(activity)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_delete_mylist, null)
+
+        builder.setView(dialogView)
+            .setPositiveButton("확인"){ dialogInterFace, i ->
+                firestore?.collection("users")?.document(user!!.uid)?.collection("alarm")
+                    ?.document(id)
+                    ?.delete()
+                    ?.addOnSuccessListener {
+                        Toast.makeText(activity, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                    ?.addOnFailureListener {}
+            }
+            .setNegativeButton("취소", null)
+            .show()
     }
 
 }
