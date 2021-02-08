@@ -2,6 +2,7 @@ package com.example.dailygreen_app.menu
 
 import com.example.dailygreen_app.R
 import java.lang.Exception
+import java.util.*
 
 // 내가 키우는 식물 리스트
 data class MyList(
@@ -29,6 +30,15 @@ data class Alarm(
     var time : String? = null,
     var date : String? = null,
     var id : String? = null
+)
+
+// 다이어리 데이터
+data class Diary(
+    var id : String? = null,
+    var category : String? = null,
+    var title : String? = null,
+    var date : Date? = null,
+    var content : String? = null
 )
 
 // 이미지 연결

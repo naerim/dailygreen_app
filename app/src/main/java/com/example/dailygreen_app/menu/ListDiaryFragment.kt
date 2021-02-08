@@ -1,30 +1,21 @@
 package com.example.dailygreen_app.menu
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dailygreen_app.MyListDetailActivity
 import com.example.dailygreen_app.R
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ListDiaryFragment : Fragment(){
     lateinit var btn_back : Button
+    lateinit var text_name_diary_detail : TextView
     var name : String? = null
 
     override fun onCreateView(
@@ -35,14 +26,21 @@ class ListDiaryFragment : Fragment(){
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_diary_list, container, false)
 
         btn_back = view.findViewById(R.id.btn_back)
+        text_name_diary_detail = view.findViewById(R.id.text_name_diary_detail)
 
+        // DiaryFragment에서 데이터 전달 받기
         val extra = arguments
         if (extra != null){
             name = extra.getString("name")
         }
+        text_name_diary_detail.text = name
 
-        Toast.makeText(activity, "$name", Toast.LENGTH_SHORT).show()
-
+        // 현재 날짜, 시간 불러오기
+        val now = System.currentTimeMillis()
+        val date = Date(now)
+        val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm")
+        val getTime = sdf.format(date)
+        Toast.makeText(activity, "$getTime", Toast.LENGTH_SHORT).show()
 
         btn_back.setOnClickListener {
             val diaryFragment = DiaryFragment()
@@ -51,5 +49,24 @@ class ListDiaryFragment : Fragment(){
         }
 
         return view
+    }
+
+    // 리사이클러뷰 사용
+    inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            var view = LayoutInflater.from(parent.context).inflate(R.layout.item_diary_detail, parent, false)
+            return ViewHolder(view)
+        }
+
+        inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+        override fun getItemCount(): Int {
+            TODO("Not yet implemented")
+        }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            var viewHolder = (holder as ViewHolder).itemView
+        }
+
     }
 }
