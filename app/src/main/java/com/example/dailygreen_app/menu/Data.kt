@@ -36,8 +36,7 @@ data class Alarm(
 data class Diary(
     var id : String? = null,
     var category : String? = null,
-    var title : String? = null,
-    var date : Date? = null,
+    var date : String? = null,
     var content : String? = null
 )
 
