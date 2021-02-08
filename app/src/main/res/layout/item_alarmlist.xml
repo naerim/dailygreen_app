@@ -22,17 +22,18 @@
 
             <TextView
                 android:id="@+id/text_showtime"
-                android:layout_width="100dp"
+                android:layout_width="0dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="38dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="38dp"
+                android:layout_marginEnd="110dp"
                 android:textAlignment="center"
                 android:textColor="#4e7086"
                 android:textSize="15sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/text_showdate"
-                app:layout_constraintStart_toEndOf="@+id/text_showname"
+                app:layout_constraintStart_toEndOf="@+id/btn_delete_alarm"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -61,15 +62,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/imageView12"
-                android:layout_width="30dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="3dp"
-                android:layout_marginBottom="3dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/alarm_del" />
+            <Button
+                android:id="@+id/btn_delete_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="25dp"
+                android:text="Button"
+                app:layout_constraintEnd_toStartOf="@+id/text_showtime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

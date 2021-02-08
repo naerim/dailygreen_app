@@ -104,7 +104,6 @@ class AlarmFragment : Fragment(){
         }
 
         btn_addalarm.setOnClickListener {
-            addAlarm()
             setAlarm()
         }
 
