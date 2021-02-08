@@ -104,8 +104,11 @@ class AlarmFragment : Fragment(){
         }
 
         btn_addalarm.setOnClickListener {
+            addAlarm()
             setAlarm()
         }
+
+
         return view
     }
 
@@ -124,10 +127,12 @@ class AlarmFragment : Fragment(){
             var time : TextView
             var date : TextView
             var btn_delete_alarm : Button
+            var name : TextView
 
             date = viewHolder.findViewById(R.id.text_showtime)
             time = viewHolder.findViewById(R.id.text_showdate)
             btn_delete_alarm = viewHolder.findViewById(R.id.btn_delete_alarm)
+            name = viewHolder.findViewById(R.id.text_showname)
 
             time.text = myalarmlist!![position].time
             date.text = myalarmlist!![position].date
@@ -139,6 +144,7 @@ class AlarmFragment : Fragment(){
                     showDeleteDialog(id)
                 }
             }
+            name.text = myalarmlist!![position].name
 
         }
 
@@ -193,6 +199,9 @@ class AlarmFragment : Fragment(){
             ?.addOnSuccessListener {}
             ?.addOnFailureListener { }
         recyclerview_alarm.adapter?.notifyDataSetChanged()
+//
+//        Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
+//        Toast.makeText(context, "이번엔 과연 일이 " + testday, Toast.LENGTH_LONG).show()
     }
 
     // 기기에 알람 설정
