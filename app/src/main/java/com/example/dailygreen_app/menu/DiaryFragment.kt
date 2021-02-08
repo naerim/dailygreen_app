@@ -92,6 +92,7 @@ class DiaryFragment : Fragment(){
                 val listDiaryFragment = ListDiaryFragment()
                 val bundle = Bundle()
                 bundle.putString("name", name.text.toString())
+                bundle.putString("species", species.text.toString())
                 listDiaryFragment.arguments = bundle
                 fragmentManager?.beginTransaction()?.replace(R.id.main_content, listDiaryFragment)
                     ?.commit()

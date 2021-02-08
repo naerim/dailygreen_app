@@ -15,4 +15,5 @@
     <color name="bottomcolor">#394e48</color>
     <color name="mainbackground">#f7f7f7</color>
     <color name="diarybackground">#394e48</color>
+    <color name="main_color">#69af8e</color>
 </resources>
