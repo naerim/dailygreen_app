@@ -27,6 +27,9 @@ class RecommendFragment : Fragment(){
 
         btn_freshair.setOnClickListener {
             val listRecommendFragment = ListRecommendFragment()
+            val bundle = Bundle()
+            bundle.putString("tag", "공기정화")
+            listRecommendFragment.arguments = bundle
 
             fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
         }

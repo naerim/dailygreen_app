@@ -117,12 +117,15 @@ class AlarmFragment : Fragment(){
             var viewHolder = (holder as ViewHolder).itemView
             var time : TextView
             var date : TextView
+            var name : TextView
 
             date = viewHolder.findViewById(R.id.text_showtime)
             time = viewHolder.findViewById(R.id.text_showdate)
+            name = viewHolder.findViewById(R.id.text_showname)
 
             time.text = myalarmlist!![position].time
             date.text = myalarmlist!![position].date
+            name.text = myalarmlist!![position].name
 
         }
 
