@@ -25,6 +25,7 @@ import java.util.ArrayList
 
 class ListDiaryFragment : Fragment(){
     lateinit var btn_back : Button
+    var name : String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,11 +36,20 @@ class ListDiaryFragment : Fragment(){
 
         btn_back = view.findViewById(R.id.btn_back)
 
+        val extra = arguments
+        if (extra != null){
+            name = extra.getString("name")
+        }
+
+        Toast.makeText(activity, "$name", Toast.LENGTH_SHORT).show()
+
+
         btn_back.setOnClickListener {
             val diaryFragment = DiaryFragment()
             fragmentManager?.beginTransaction()?.replace(R.id.main_content, diaryFragment)
                 ?.commit()
         }
+
         return view
     }
 }

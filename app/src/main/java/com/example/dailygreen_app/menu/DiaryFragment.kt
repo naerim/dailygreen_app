@@ -89,11 +89,15 @@ class DiaryFragment : Fragment(){
 
             // 클릭이벤트
             viewHolder.setOnClickListener {
+
+//                val intent = Intent(viewHolder?.context, ListDiaryFragment::class.java)
+//                intent.putExtra("name", name.text.toString())
                 val listDiaryFragment = ListDiaryFragment()
+                val bundle = Bundle()
+                bundle.putString("name", name.text.toString())
+                listDiaryFragment.arguments = bundle
                 fragmentManager?.beginTransaction()?.replace(R.id.main_content, listDiaryFragment)
                     ?.commit()
-//                val intent = Intent(viewHolder?.context, MyListDetailActivity::class.java)
-//                intent.putExtra("name", name.text.toString())
 //                intent.putExtra("species", species.text.toString())
 //                ContextCompat.startActivity(viewHolder.context, intent, null)
 //                Toast.makeText(viewHolder.context,"성공", Toast.LENGTH_SHORT).show()
