@@ -5,13 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.app.AlarmManagerCompat.setExactAndAllowWhileIdle
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,14 +16,8 @@ import com.example.dailygreen_app.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import org.w3c.dom.Text
-import java.time.Month
-import java.time.MonthDay
-import java.time.Year
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.min
 import kotlin.properties.Delegates
 
 class AlarmFragment : Fragment(){
@@ -128,8 +119,8 @@ class AlarmFragment : Fragment(){
             var btn_delete_alarm : Button
             var name : TextView
 
-            date = viewHolder.findViewById(R.id.text_showtime)
-            time = viewHolder.findViewById(R.id.text_showdate)
+            date = viewHolder.findViewById(R.id.text_showdate)
+            time = viewHolder.findViewById(R.id.text_showtime)
             btn_delete_alarm = viewHolder.findViewById(R.id.btn_delete_alarm)
             name = viewHolder.findViewById(R.id.text_showname)
 
