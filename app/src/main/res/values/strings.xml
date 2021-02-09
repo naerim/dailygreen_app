@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">dailygreen_app</string>
+    <string name="app_name">데일리그린</string>
     <string name="made_by">© 플랜테라피하시조</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
