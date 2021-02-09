@@ -4,71 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@drawable/background_alarm_recommen">
 
     <android.widget.Button
         android:id="@+id/btn_air"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="114dp"
-        android:layout_marginBottom="107dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/btn_dry"
-        app:layout_constraintEnd_toStartOf="@+id/btn_pet"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="120dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="132dp"
+        android:background="@drawable/freshair"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.widget.Button
         android:id="@+id/btn_pet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="57dp"
-        android:layout_marginBottom="107dp"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/btn_dark"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_width="120dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="132dp"
+        android:layout_marginEnd="66dp"
+        android:background="@drawable/pet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.widget.Button
         android:id="@+id/btn_dry"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginEnd="114dp"
-        android:layout_marginBottom="105dp"
-        android:text="Button"
+        android:layout_width="120dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/dry"
         app:layout_constraintBottom_toTopOf="@+id/btn_interior"
-        app:layout_constraintEnd_toStartOf="@+id/btn_dark"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_air" />
 
     <android.widget.Button
         android:id="@+id/btn_dark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="57dp"
-        android:layout_marginBottom="105dp"
-        android:text="Button"
+        android:layout_width="120dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/dark"
         app:layout_constraintBottom_toTopOf="@+id/btn_killbug"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_pet" />
 
     <android.widget.Button
         android:id="@+id/btn_interior"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="180dp"
         android:layout_marginStart="64dp"
-        android:layout_marginEnd="114dp"
-        android:layout_marginBottom="159dp"
-        android:text="Button"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/interior"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_killbug"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.widget.Button
         android:id="@+id/btn_killbug"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="57dp"
-        android:layout_marginBottom="159dp"
-        android:text="Button"
+        android:layout_width="120dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/killbug"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
