@@ -5,7 +5,7 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/login_back"
     tools:context=".LoginActivity">
 
 
@@ -17,7 +17,7 @@
         android:layout_marginStart="65dp"
         android:layout_marginTop="150dp"
         android:layout_marginEnd="65dp"
-        android:src="@drawable/mainlogotext"
+        android:src="@drawable/main_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -90,17 +90,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:srcCompat="@drawable/loginsuggest" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
