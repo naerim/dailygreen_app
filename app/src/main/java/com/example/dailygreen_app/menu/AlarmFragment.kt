@@ -1,5 +1,6 @@
 package com.example.dailygreen_app.menu
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
@@ -189,9 +190,6 @@ class AlarmFragment : Fragment(){
             ?.addOnSuccessListener {}
             ?.addOnFailureListener { }
         recyclerview_alarm.adapter?.notifyDataSetChanged()
-//
-//        Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
-//        Toast.makeText(context, "이번엔 과연 일이 " + testday, Toast.LENGTH_LONG).show()
     }
 
     // 기기에 알람 설정
@@ -240,6 +238,7 @@ class AlarmFragment : Fragment(){
     fun showDeleteDialog(id : String){
         val builder = AlertDialog.Builder(activity)
         val dialogView = layoutInflater.inflate(R.layout.dialog_delete_mylist, null)
+        var alid = id.toInt()
 
         builder.setView(dialogView)
             .setPositiveButton("확인"){ dialogInterFace, i ->
@@ -248,6 +247,9 @@ class AlarmFragment : Fragment(){
                     ?.delete()
                     ?.addOnSuccessListener {
                         Toast.makeText(activity, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(getActivity(), ShowalarmActivity::class.java)
+                        val pendingIntent = PendingIntent.getActivity(context, alid, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                        alarmManager.cancel(pendingIntent)
                     }
                     ?.addOnFailureListener {}
             }
