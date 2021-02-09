@@ -1,6 +1,5 @@
 package com.example.dailygreen_app.menu
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,18 +7,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dailygreen_app.DiaryDetailActivity
-import com.example.dailygreen_app.MainActivity
 import com.example.dailygreen_app.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import org.w3c.dom.Text
 import java.util.ArrayList
 
 class ListRecommendFragment : Fragment(){
@@ -63,6 +57,7 @@ class ListRecommendFragment : Fragment(){
         if (imgId != null) {
             img_icon.setImageResource(imgId)
         }
+        text_category.text = category
         text_desc.text = setDesc(category)
 
         // 데이터 불러오기
