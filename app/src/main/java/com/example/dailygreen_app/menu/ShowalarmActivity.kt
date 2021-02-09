@@ -42,7 +42,6 @@ class ShowalarmActivity : AppCompatActivity() {
 
         // intent와 연결
         var id = intent.getStringExtra("id")
-        Toast.makeText(this, "$id", Toast.LENGTH_SHORT).show()
 
         btn_stop.setOnClickListener {
             player.stop()

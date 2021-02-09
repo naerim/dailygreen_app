@@ -247,6 +247,7 @@ class AlarmFragment : Fragment(){
                     ?.delete()
                     ?.addOnSuccessListener {
                         Toast.makeText(activity, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                        // 기기 내부의 알람 지우기
                         val intent = Intent(getActivity(), ShowalarmActivity::class.java)
                         val pendingIntent = PendingIntent.getActivity(context, alid, intent, PendingIntent.FLAG_UPDATE_CURRENT)
                         alarmManager.cancel(pendingIntent)
