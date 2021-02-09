@@ -32,7 +32,7 @@
         android:background="@drawable/edittextbackground"
         android:hint="이메일"
         android:paddingLeft="15dp"
-        android:text="test01@gmail.com"
+        android:text="test05@gmail.com"
         android:textColor="@color/textcolor"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
