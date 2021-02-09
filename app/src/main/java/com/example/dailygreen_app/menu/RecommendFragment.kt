@@ -38,7 +38,7 @@ class RecommendFragment : Fragment(){
         btn_freshair.setOnClickListener {
             val listRecommendFragment = ListRecommendFragment()
             val bundle = Bundle()
-            bundle.putString("tag", "공기정화")
+            bundle.putString("category", "공기정화")
             listRecommendFragment.arguments = bundle
 
             fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
@@ -47,7 +47,7 @@ class RecommendFragment : Fragment(){
         btn_pet.setOnClickListener {
             val listRecommendFragment = ListRecommendFragment()
             val bundle = Bundle()
-            bundle.putString("tag", "반려동물")
+            bundle.putString("category", "반려동물")
             listRecommendFragment.arguments = bundle
 
             fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
@@ -56,7 +56,7 @@ class RecommendFragment : Fragment(){
         btn_dry.setOnClickListener {
             val listRecommendFragment = ListRecommendFragment()
             val bundle = Bundle()
-            bundle.putString("tag", "물조금만")
+            bundle.putString("category", "물조금만")
             listRecommendFragment.arguments = bundle
 
             fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
@@ -65,7 +65,7 @@ class RecommendFragment : Fragment(){
         btn_dark.setOnClickListener {
             val listRecommendFragment = ListRecommendFragment()
             val bundle = Bundle()
-            bundle.putString("tag", "햇빛조금")
+            bundle.putString("category", "햇빛조금")
             listRecommendFragment.arguments = bundle
 
             fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
@@ -74,7 +74,7 @@ class RecommendFragment : Fragment(){
         btn_interior.setOnClickListener {
             val listRecommendFragment = ListRecommendFragment()
             val bundle = Bundle()
-            bundle.putString("tag", "인테리어")
+            bundle.putString("category", "인테리어")
             listRecommendFragment.arguments = bundle
 
             fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
@@ -83,7 +83,7 @@ class RecommendFragment : Fragment(){
         btn_killbut.setOnClickListener {
             val listRecommendFragment = ListRecommendFragment()
             val bundle = Bundle()
-            bundle.putString("tag", "해충박멸")
+            bundle.putString("category", "해충박멸")
             listRecommendFragment.arguments = bundle
 
             fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()

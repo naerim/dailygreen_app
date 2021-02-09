@@ -1,5 +1,6 @@
 package com.example.dailygreen_app.menu
 
+import android.widget.TextView
 import com.example.dailygreen_app.R
 import java.lang.Exception
 import java.util.*
@@ -51,7 +52,7 @@ var ImageList = hashMapOf(
     "벤쿠버제라늄" to "plant_ven",
     "돈나무" to "plant_done",
     "청기린" to "plant_chung",
-    "코로키아그린" to "plant_coro",
+    "코코키아그린" to "plant_coro",
     "유칼립투스" to "plant_you",
     "무늬아비스" to "plant_muni",
     "켄차야자" to "plant_cancha"
@@ -67,13 +68,32 @@ fun setImage(species: String?): Int? {
 // 아이콘 연결
 var IconList = hashMapOf(
     "공기정화" to "icon_fresh",
-    "반려동물" to "icon_pet"
+    "반려동물" to "icon_pet",
+    "물조금만" to "icon_dry",
+    "해충박멸" to "icon_killbug",
+    "햇빛조금" to "icon_dark",
+    "인테리어" to "icon_interior"
 )
 
-fun setIcon(tag: String?): Int? {
-    var iconName = IconList["$tag"]
+fun setIcon(category: String?): Int? {
+    var iconName = IconList["$category"]
     var resId = iconName?.let {R.drawable::class.java.getId(it)}
     return resId
+}
+
+// desc 연결
+var descList = hashMapOf(
+    "공기정화" to "공기를 정화해주는 식물들",
+    "반려동물" to "반려동물에게 해가 가지 않는 식물들",
+    "물조금만" to "물을 조금만 해도 되는 식물들",
+    "해충박멸" to "벌레들이 싫어하는 식물들",
+    "햇빛조금" to "어두운 데서도 잘 자라는 식물들",
+    "인테리어" to "집을 꾸밀 수 있는 식물들"
+)
+
+fun setDesc(category: String?): CharSequence? {
+    var desc = descList["$category"]
+    return desc
 }
 
 inline fun <reified T : Class<R.drawable>> T.getId(resourceName: String): Int {
