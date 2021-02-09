@@ -1,14 +1,18 @@
 package com.example.dailygreen_app.menu
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dailygreen_app.DiaryDetailActivity
+import com.example.dailygreen_app.MyListDetailActivity
 import com.example.dailygreen_app.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -111,7 +115,13 @@ class ListDiaryFragment : Fragment(){
             content.text = diarylist!![position].content
             var id : String? = diarylist[position].id
 
-            // 이미지 설정
+            viewHolder.setOnClickListener {
+                val intent = Intent(viewHolder?.context, DiaryDetailActivity::class.java)
+                intent.putExtra("content", content.text as String)
+                intent.putExtra("date", date.text as String)
+                intent.putExtra("id", id)
+                ContextCompat.startActivity(viewHolder.context, intent, null)
+            }
         }
 
     }

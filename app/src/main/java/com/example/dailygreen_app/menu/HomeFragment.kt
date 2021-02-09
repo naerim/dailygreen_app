@@ -113,7 +113,6 @@ class HomeFragment : Fragment(){
                 intent.putExtra("date", date)
                 intent.putExtra("id", id)
                 ContextCompat.startActivity(viewHolder.context, intent, null)
-                Toast.makeText(viewHolder.context,"성공", Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -28,8 +28,6 @@ class DiaryFragment : Fragment(){
 
     lateinit var recyclerview_diary_home : RecyclerView
     lateinit var mylist: ArrayList<MyList>
-//    lateinit var text_diary_home_species : TextView
-//    lateinit var text_diary_home_name : TextView
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
