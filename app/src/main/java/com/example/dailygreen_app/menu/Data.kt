@@ -15,13 +15,8 @@ data class MyList(
 // 식물 데이터
 data class Plants(
     var species : String? = null,
-    var sun : String? = null,
-    var temperature : String? = null,
-    var water : String? = null,
     var tip : String? = null,
-    var from : String? = null,
-    var tag : String? = null,
-    var s_name : String? = null
+    var category: String? = null
 )
 
 // 알람 데이터
@@ -38,12 +33,28 @@ data class Diary(
     var category : String? = null,
     var date : String? = null,
     var content : String? = null
-)
 
+)
 // 이미지 연결
 var ImageList = hashMapOf(
-    "고무나무" to "plant_gomu",
-    "호야" to "plant_hoya"
+    "관음죽" to "plant_jook",
+    "인도고무나무" to "plant_indogomu",
+    "아이비" to "plant_ivy",
+    "아레카야자" to "plant_arekayaja",
+    "백리향" to "plant_backrihyang",
+    "바질" to "plant_bazil",
+    "알로카시아" to "plant_allo",
+    "크루시아" to "plant_crew",
+    "블루스타" to "plant_blue",
+    "구문초" to "plant_goo",
+    "긴잎끈끈이주걱" to "plant_longleaf",
+    "벤쿠버제라늄" to "plant_ven",
+    "돈나무" to "plant_done",
+    "청기린" to "plant_chung",
+    "코로키아그린" to "plant_coro",
+    "유칼립투스" to "plant_you",
+    "무늬아비스" to "plant_muni",
+    "켄차야자" to "plant_cancha"
 )
 
 // 종에 해당하는 이미지 찾아서 아이디값 반환
