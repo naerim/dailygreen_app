@@ -5,91 +5,167 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_back"
+    android:background="@drawable/background_leaf"
     tools:context=".LoginActivity">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="65dp"
-        android:src="@drawable/main_logo"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/endlogin_back"
+        android:backgroundTint="#F0FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/edt_email_login"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="120dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/edittextbackground"
-        android:hint="이메일"
-        android:paddingLeft="15dp"
-        android:text="test05@gmail.com"
-        android:textColor="@color/textcolor"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        <EditText
+            android:id="@+id/edt_email_login"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:backgroundTint="#00FFFFFF"
+            android:hint="이메일"
+            android:paddingLeft="15dp"
+            android:text="test05@gmail.com"
+            android:textColor="@color/textcolor"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView18"
+            app:layout_constraintTop_toBottomOf="@+id/imageView17" />
 
-    <EditText
-        android:id="@+id/edt_password_login"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/edittextbackground"
-        android:hint="비밀번호"
-        android:inputType="textPassword"
-        android:text="qwer1234"
-        android:paddingLeft="15dp"
-        android:textColor="@color/textcolor"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_email_login" />
+        <EditText
+            android:id="@+id/edt_password_login"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edittextbackground"
+            android:backgroundTint="#00FFFFFF"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:paddingLeft="15dp"
+            android:text="qwer1234"
+            android:textColor="@color/textcolor"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/imageView19"
+            app:layout_constraintTop_toBottomOf="@+id/edt_email_login" />
 
-    <android.widget.Button
-        android:id="@+id/btn_login"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/roundbutton"
-        android:backgroundTint="@color/btnbackground"
-        android:text="Login"
-        android:textColor="#f7f7f7"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_password_login" />
+        <android.widget.Button
+            android:id="@+id/btn_login"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="55dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/btn_loginback"
+            android:text="로그인"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="105dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="105dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/endlogin" />
+
+        <ImageView
+            android:id="@+id/imageView18"
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="136dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_email" />
+
+        <ImageView
+            android:id="@+id/imageView19"
+            android:layout_width="23dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView20"
+            app:srcCompat="@drawable/icon_password" />
+
+        <ImageView
+            android:id="@+id/imageView20"
+            android:layout_width="330dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView18"
+            app:srcCompat="@drawable/underbar" />
+
+        <ImageView
+            android:id="@+id/imageView21"
+            android:layout_width="330dp"
+            android:layout_height="8dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView19"
+            app:srcCompat="@drawable/underbar" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <android.widget.Button
         android:id="@+id/btn_signUp"
-        android:layout_width="100dp"
-        android:layout_height="18dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/signup"
-        android:textColor="#08460A"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="75dp"
+        android:background="#ffffff"
+        android:backgroundTint="#00FFFFFF"
+        android:text="회원가입"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="48dp"
+        android:backgroundTint="#00FFFFFF"
+        android:text="로그인"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView16"
+        android:layout_width="1dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="42dp"
+        android:backgroundTint="#E4FFFFFF"
+        app:layout_constraintEnd_toStartOf="@+id/btn_signUp"
+        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sign_in_up_bar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

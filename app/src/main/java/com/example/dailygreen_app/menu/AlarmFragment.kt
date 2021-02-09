@@ -1,17 +1,15 @@
 package com.example.dailygreen_app.menu
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.app.AlarmManagerCompat.setExactAndAllowWhileIdle
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,14 +17,8 @@ import com.example.dailygreen_app.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import org.w3c.dom.Text
-import java.time.Month
-import java.time.MonthDay
-import java.time.Year
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.min
 import kotlin.properties.Delegates
 
 class AlarmFragment : Fragment(){
@@ -128,8 +120,8 @@ class AlarmFragment : Fragment(){
             var btn_delete_alarm : Button
             var name : TextView
 
-            date = viewHolder.findViewById(R.id.text_showtime)
-            time = viewHolder.findViewById(R.id.text_showdate)
+            date = viewHolder.findViewById(R.id.text_showdate)
+            time = viewHolder.findViewById(R.id.text_showtime)
             btn_delete_alarm = viewHolder.findViewById(R.id.btn_delete_alarm)
             name = viewHolder.findViewById(R.id.text_showname)
 
@@ -198,9 +190,6 @@ class AlarmFragment : Fragment(){
             ?.addOnSuccessListener {}
             ?.addOnFailureListener { }
         recyclerview_alarm.adapter?.notifyDataSetChanged()
-//
-//        Toast.makeText(context, "setalarm실행   "+ testhour + "시" + testmin, Toast.LENGTH_LONG).show()
-//        Toast.makeText(context, "이번엔 과연 일이 " + testday, Toast.LENGTH_LONG).show()
     }
 
     // 기기에 알람 설정
@@ -249,6 +238,7 @@ class AlarmFragment : Fragment(){
     fun showDeleteDialog(id : String){
         val builder = AlertDialog.Builder(activity)
         val dialogView = layoutInflater.inflate(R.layout.dialog_delete_mylist, null)
+        var alid = id.toInt()
 
         builder.setView(dialogView)
             .setPositiveButton("확인"){ dialogInterFace, i ->
@@ -257,6 +247,9 @@ class AlarmFragment : Fragment(){
                     ?.delete()
                     ?.addOnSuccessListener {
                         Toast.makeText(activity, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(getActivity(), ShowalarmActivity::class.java)
+                        val pendingIntent = PendingIntent.getActivity(context, alid, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+                        alarmManager.cancel(pendingIntent)
                     }
                     ?.addOnFailureListener {}
             }
