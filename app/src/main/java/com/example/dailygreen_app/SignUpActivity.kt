@@ -17,6 +17,7 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var edt_email : EditText
     lateinit var edt_password : EditText
     lateinit var btn_signUp : Button
+    lateinit var btn_login : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +40,11 @@ class SignUpActivity : AppCompatActivity() {
             }else{
                 signUp()
             }
+        }
+
+        btn_login = findViewById(R.id.btn_backlogin)
+        btn_login.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 
