@@ -4,33 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/login_back"
     tools:context=".SplashActivity">
 
     <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="251dp"
-        android:layout_height="621dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="43dp"
-        android:layout_marginEnd="80dp"
-        android:foregroundGravity="center"
+        android:id="@+id/imageView5"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="56dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/splash" />
+        app:srcCompat="@drawable/main_logo" />
 
-    <TextView
-        android:id="@+id/madeBy"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:layout_marginBottom="32dp"
-        android:gravity="center"
-        android:text="@string/made_by"
-        android:textSize="10sp"
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="145dp"
+        android:layout_marginEnd="145dp"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8"
-        tools:layout_editor_absoluteX="50dp" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/logo_main" />
 </androidx.constraintlayout.widget.ConstraintLayout>
