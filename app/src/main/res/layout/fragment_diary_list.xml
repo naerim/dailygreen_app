@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF">
+    android:background="@drawable/background_diary">
 
     <TextView
         android:id="@+id/textView7"
@@ -13,17 +13,16 @@
         android:layout_marginStart="45dp"
         android:layout_marginTop="72dp"
         android:text="다이어리"
-        android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="0dp"
+        android:layout_width="396dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/main_color"
+        android:layout_marginTop="8dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +39,7 @@
                 android:id="@+id/img_diary_list"
                 android:layout_width="135dp"
                 android:layout_height="135dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="45dp"
                 android:src="@drawable/blankface" />
 
             <TextView
@@ -49,7 +48,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="종"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <TextView
@@ -58,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:text="이름"
                 android:textAlignment="viewEnd"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="18sp" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -78,7 +76,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/icon_back"
+        android:background="@drawable/icon_back_white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,7 +86,7 @@
         android:layout_height="75dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
-        android:background="@drawable/plusdiary"
+        android:background="@drawable/plusplnat"
         android:elevation="5dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
