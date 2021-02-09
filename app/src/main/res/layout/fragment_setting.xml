@@ -6,6 +6,26 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_short">
 
+    <android.widget.ImageButton
+        android:id="@+id/btn_terms"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/btn_terms"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_logout" />
+
+    <android.widget.ImageButton
+        android:id="@+id/btn_producer"
+        android:layout_width="110dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/btn_producer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_terms" />
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
@@ -18,5 +38,15 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <android.widget.ImageButton
+        android:id="@+id/btn_logout"
+        android:layout_width="130dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/btn_logout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
