@@ -21,8 +21,8 @@
     <ImageView
         android:id="@+id/imageView13"
         android:layout_width="0dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="104dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="128dp"
         android:src="@drawable/back_recommend"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -46,11 +46,12 @@
         android:id="@+id/recyclerview_recommend_detail"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView13" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView13"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView17"
