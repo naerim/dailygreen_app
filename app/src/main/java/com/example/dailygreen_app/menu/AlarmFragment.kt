@@ -34,6 +34,7 @@ class AlarmFragment : Fragment(){
     lateinit var btn_addalarm : Button
     lateinit var calendar : GregorianCalendar
     lateinit var text_time : TextView
+    lateinit var text_date : TextView
     lateinit var selectspinner: Spinner
     lateinit var alarmManager: AlarmManager
 
@@ -62,6 +63,7 @@ class AlarmFragment : Fragment(){
         btn_checkdate = view.findViewById(R.id.btn_checkdate)
         btn_addalarm = view.findViewById(R.id.btn_addalarm)
         text_time = view.findViewById(R.id.text_time)
+        text_date = view.findViewById(R.id.text_date)
         recyclerview_alarm = view.findViewById(R.id.recyclerview_alarm)
         selectspinner = view.findViewById(R.id.spinner_alarmpick)
 
@@ -208,6 +210,8 @@ class AlarmFragment : Fragment(){
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
         }
         addAlarm(alarmid)
+        text_date.setText("Date")
+        text_time.setText("Time")
     }
 
     fun loadData(){
