@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BeforLoginActivity"
-    android:background="@drawable/background_leaf">
+    android:background="@drawable/background_splash"
+    tools:context=".BeforLoginActivity">
 
     <ImageView
         android:id="@+id/imageView3"

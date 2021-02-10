@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_leaf"
+    android:background="@drawable/background_splash"
     tools:context=".SignUpActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dp"
-        android:background="@drawable/endlogin_back"
+        android:background="@drawable/background_endlogin"
         android:backgroundTint="#F0FFFFFF"
         app:layout_constraintTop_toTopOf="parent">
 
