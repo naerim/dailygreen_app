@@ -34,59 +34,38 @@ class RecommendFragment : Fragment(){
         btn_killbut = view!!.findViewById(R.id.btn_killbug)
 
         btn_freshair.setOnClickListener {
-            val listRecommendFragment = ListRecommendFragment()
-            val bundle = Bundle()
-            bundle.putString("category", "공기정화")
-            listRecommendFragment.arguments = bundle
-
-            fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
+            moveCategory("공기정화")
         }
 
         btn_pet.setOnClickListener {
-            val listRecommendFragment = ListRecommendFragment()
-            val bundle = Bundle()
-            bundle.putString("category", "반려동물")
-            listRecommendFragment.arguments = bundle
-
-            fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
+            moveCategory("반려동물")
         }
 
         btn_dry.setOnClickListener {
-            val listRecommendFragment = ListRecommendFragment()
-            val bundle = Bundle()
-            bundle.putString("category", "물조금만")
-            listRecommendFragment.arguments = bundle
-
-            fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
+            moveCategory("물조금만")
         }
 
         btn_dark.setOnClickListener {
-            val listRecommendFragment = ListRecommendFragment()
-            val bundle = Bundle()
-            bundle.putString("category", "햇빛조금")
-            listRecommendFragment.arguments = bundle
-
-            fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
+            moveCategory("햇빛조금")
         }
 
         btn_interior.setOnClickListener {
-            val listRecommendFragment = ListRecommendFragment()
-            val bundle = Bundle()
-            bundle.putString("category", "인테리어")
-            listRecommendFragment.arguments = bundle
-
-            fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
+            moveCategory("인테리어")
         }
 
         btn_killbut.setOnClickListener {
-            val listRecommendFragment = ListRecommendFragment()
-            val bundle = Bundle()
-            bundle.putString("category", "해충박멸")
-            listRecommendFragment.arguments = bundle
-
-            fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
+            moveCategory("해충박멸")
         }
 
         return view
+    }
+
+    // 카테고리값을 listRecommendFragment로 넘겨주는 함수
+    fun moveCategory(category: String?){
+        val listRecommendFragment = ListRecommendFragment()
+        val bundle = Bundle()
+        bundle.putString("category", "$category")
+        listRecommendFragment.arguments = bundle
+        fragmentManager?.beginTransaction()?.replace(R.id.main_content, listRecommendFragment)?.commit()
     }
 }

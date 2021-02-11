@@ -62,6 +62,7 @@ class SignUpActivity : AppCompatActivity() {
                     Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
                     moveLoginPage(task.result?.user)
                 }else{
+                    resetEditText()
                     Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -71,5 +72,10 @@ class SignUpActivity : AppCompatActivity() {
         if(user != null){
             startActivity(Intent(this, LoginActivity::class.java))
         }
+    }
+
+    fun resetEditText(){
+        edt_email.setText("")
+        edt_password.setText("")
     }
 }
