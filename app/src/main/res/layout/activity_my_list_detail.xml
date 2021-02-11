@@ -52,7 +52,7 @@
     <TextView
         android:id="@+id/text_tip_mylist_detail"
         android:layout_width="280dp"
-        android:layout_height="115dp"
+        android:layout_height="130dp"
         android:background="@drawable/item_green"
         android:padding="30dp"
         android:text="test"
