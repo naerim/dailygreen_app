@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
-import android.widget.Toast
 import com.example.dailygreen_app.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -34,8 +33,6 @@ class ShowalarmActivity : AppCompatActivity() {
 
         var btn_stop: Button
         btn_stop = findViewById(R.id.btn_stopalarm)
-
-        val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
 
         val player = MediaPlayer.create(this, R.raw.loveagain)
         player.start()

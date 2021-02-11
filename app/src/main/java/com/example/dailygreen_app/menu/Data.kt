@@ -1,9 +1,7 @@
 package com.example.dailygreen_app.menu
 
-import android.widget.TextView
 import com.example.dailygreen_app.R
 import java.lang.Exception
-import java.util.*
 
 // 내가 키우는 식물 리스트
 data class MyList(
@@ -36,6 +34,7 @@ data class Diary(
     var content : String? = null
 
 )
+
 // 이미지 연결
 var ImageList = hashMapOf(
     "관음죽" to "plant_jook",
@@ -75,6 +74,7 @@ var IconList = hashMapOf(
     "인테리어" to "icon_interior"
 )
 
+// 카테고리에 해당하는 아이콘 반환
 fun setIcon(category: String?): Int? {
     var iconName = IconList["$category"]
     var resId = iconName?.let {R.drawable::class.java.getId(it)}
@@ -91,6 +91,7 @@ var descList = hashMapOf(
     "인테리어" to "집을 꾸밀 수 있는 식물들"
 )
 
+// 카테고리에 해당하는 설명 반환
 fun setDesc(category: String?): CharSequence? {
     var desc = descList["$category"]
     return desc
