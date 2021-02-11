@@ -170,6 +170,7 @@ class MyListDetailActivity : AppCompatActivity() {
         edt_date = dialogView.findViewById(R.id.edt_date)
         btn_date = dialogView.findViewById(R.id.btn_date)
         edt_name = dialogView.findViewById(R.id.edt_name)
+        edt_name.setText("$name")
 
         btn_date.setOnClickListener {
             showDate()
