@@ -106,4 +106,3 @@ inline fun <reified T : Class<R.drawable>> T.getId(resourceName: String): Int {
     }
 }
 
-

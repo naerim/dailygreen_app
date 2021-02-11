@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +37,7 @@ class HomeFragment : Fragment(){
     lateinit var edt_date : EditText
     lateinit var btn_date : Button
     lateinit var edt_name : EditText
+    lateinit var text_warning_edit : TextView
 
     lateinit var select_species : String
 
@@ -143,6 +145,9 @@ class HomeFragment : Fragment(){
         edt_date = dialogView.findViewById(R.id.edt_date)
         btn_date = dialogView.findViewById(R.id.btn_date)
         edt_name = dialogView.findViewById(R.id.edt_name)
+        text_warning_edit = dialogView.findViewById(R.id.text_warning_edit)
+
+        text_warning_edit.visibility = View.GONE
 
         btn_date.setOnClickListener {
             showDate()
