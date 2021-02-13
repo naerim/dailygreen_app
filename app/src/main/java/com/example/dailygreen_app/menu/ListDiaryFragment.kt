@@ -177,6 +177,8 @@ class ListDiaryFragment : Fragment(){
                             ?.addOnFailureListener{}
                     }
                     recyclerview_diary_detail.adapter?.notifyDataSetChanged()
+                } else {
+                    Toast.makeText(activity, "내용을 입력하세요.", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("취소", null)

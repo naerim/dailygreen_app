@@ -57,6 +57,7 @@ class AlarmFragment : Fragment(){
         var view = LayoutInflater.from(activity).inflate(R.layout.fragment_alarm, container, false)
 
         alarmid = 0
+        select_plant = ""
         myalarmlist = arrayListOf<Alarm>()
         myplantlist = arrayListOf<String>()
         btn_checkdate = view.findViewById(R.id.btn_checkdate)
@@ -65,6 +66,8 @@ class AlarmFragment : Fragment(){
         text_date = view.findViewById(R.id.text_date)
         recyclerview_alarm = view.findViewById(R.id.recyclerview_alarm)
         selectspinner = view.findViewById(R.id.spinner_alarmpick)
+        pick_date = view.findViewById(R.id.text_date)
+        pick_time = view.findViewById(R.id.text_time)
 
         // 파이어베이스 인증 객체
         auth = FirebaseAuth.getInstance()
@@ -90,12 +93,12 @@ class AlarmFragment : Fragment(){
         recyclerview_alarm.adapter = RecyclerViewAdapter()
         recyclerview_alarm.layoutManager = LinearLayoutManager(activity)
 
+        // 날짜 등록 버튼
         btn_checkdate.setOnClickListener {
-            pick_date = view!!.findViewById(R.id.text_date)
-            pick_time = view!!.findViewById(R.id.text_time)
             checkAlarm()
         }
 
+        // 알람 추가
         btn_addalarm.setOnClickListener {
             setAlarm()
         }
@@ -184,13 +187,16 @@ class AlarmFragment : Fragment(){
     fun addAlarm(id : Int)
     {
         val idString = id.toString()
-
-        firestore?.collection("users")?.document(user!!.uid)?.collection("alarm")
-            ?.document("$idString")
-            ?.set(hashMapOf("id" to idString, "name" to select_plant, "time" to pick_time.text.toString(), "date" to pick_date.text.toString()))
-            ?.addOnSuccessListener {}
-            ?.addOnFailureListener { }
-        recyclerview_alarm.adapter?.notifyDataSetChanged()
+        if(select_plant!="" && pick_time.text.toString()!="Time" && pick_date.text.toString()!="Date"){
+            firestore?.collection("users")?.document(user!!.uid)?.collection("alarm")
+                ?.document("$idString")
+                ?.set(hashMapOf("id" to idString, "name" to select_plant, "time" to pick_time.text.toString(), "date" to pick_date.text.toString()))
+                ?.addOnSuccessListener {}
+                ?.addOnFailureListener {}
+            recyclerview_alarm.adapter?.notifyDataSetChanged()
+        }else{
+            Toast.makeText(activity,"알람등록 실패", Toast.LENGTH_SHORT).show()
+        }
     }
 
     // 기기에 알람 설정
@@ -198,17 +204,22 @@ class AlarmFragment : Fragment(){
         val random = Random()
         val alarmid : Int = random.nextInt(1000)
 
-        var setcalendar = GregorianCalendar(testyear, testmonth, testday, testhour, testmin)
-        val intent = Intent(getActivity(), ShowalarmActivity::class.java)
-        intent.putExtra("id", alarmid.toString())
-        val pendingIntent = PendingIntent.getActivity(context, alarmid, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        if (select_plant!="" && pick_time.text.toString()!="Time" && pick_date.text.toString()!="Date"){
+            var setcalendar = GregorianCalendar(testyear, testmonth, testday, testhour, testmin)
+            val intent = Intent(getActivity(), ShowalarmActivity::class.java)
+            intent.putExtra("id", alarmid.toString())
+            val pendingIntent = PendingIntent.getActivity(context, alarmid, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
+            } else{
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
+            }
+
+            addAlarm(alarmid)
         } else{
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, setcalendar.timeInMillis, pendingIntent)
+            Toast.makeText(activity,"알람등록 실패", Toast.LENGTH_SHORT).show()
         }
-        addAlarm(alarmid)
         text_date.setText("Date")
         text_time.setText("Time")
     }
